@@ -7,7 +7,7 @@ import dockerApi._
 
 object Engine extends Environment{
 
-  val toolName = ToolName("jsHint")
+  val toolName = ToolName("jshint")
 
   def main(args: Array[String]): Unit = config.flatMap{ case config =>
     config.tools.collectFirst{ case toolConfig if toolConfig.name == toolName =>
