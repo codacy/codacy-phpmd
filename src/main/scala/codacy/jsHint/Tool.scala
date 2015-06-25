@@ -28,9 +28,7 @@ object Tool extends ((Path,Seq[PatternDef]) => Try[Iterable[Result]]){
     fileForConfig(configFromPatterns(patterns)).map{ case configFile =>
 
       val configPath = configFile.toAbsolutePath().toString
-      val cmd = Seq("jshint", "--config", configPath, "--verbose") ++
-        //ignoreFile.toOption.fold(Seq.empty[String]){ case ignore => Seq("--exclude-path", ignore.toAbsolutePath().toString) } ++
-        Seq(sourcePath.toAbsolutePath.toString)
+      val cmd = Seq("jshint", "--config", configPath, "--verbose", sourcePath.toAbsolutePath.toString)
 
       cmd.lineStream_!.map( outputLineAsResult ).
       collect{ case Some(result) if ruleIds.contains(result.ruleId) => result }
@@ -149,53 +147,60 @@ object Tool extends ((Path,Seq[PatternDef]) => Try[Iterable[Result]]){
   }
 
   private[this] def ruleIdAndMessage(message: String, error: String): Option[(PatternId, ResultMessage)] = {
-    val trimmed = message.trim
+    val msg = message.trim
 
-    JsHintPattern.values.find(_.toString == s"$minusPrefix$error").map( (_, trimmed) ).collect{
-      case (`-W116`, msg) if msg.matches( """Expected '\{'.*""")                   => (`curly`,     None)
-      case (`-W116`, msg) if msg.matches( """Expected '(===|!==).*""")             => (`eqeqeq`,    None)
-      case (`-W016`, msg) if msg.matches( """.*use of '(&|\|)'.*""")               => (`bitwise`,   None)
-      case (`-W106`, msg) if msg.matches( """.*not in camel case.*""")             => (`camelcase`, None)
-      case (`-W003`, msg) if msg matches """.*was used before it was defined.*"""  => (`latedef`,   None)
-      case (`-W059`, msg) if msg matches """.*(caller|callee).*"""                 => (`noarg`,     None)
-      case (`-W031`, msg) if msg matches """Do not use 'new' for side effects.*""" => (`nonew`,     None)
-      case (`-W016`, msg) if msg matches """Unexpected use of '(\+\+|--)'.*"""     => (`plusplus`,  None)
-      case (`-W117`, msg) if msg matches """.*is not defined.*"""                  => (`undef`,     None)
-      case (`-W098`, msg) if msg matches """.*is defined but never used.*"""       => (`unused`,    None)
-      case (`-W055`, _) => (`newcap`,        None)
-      case (`-W089`, _) => (`forin`,         None)
-      case (`-W121`, _) => (`freeze`,        None)
-      case (`-W062`, _) => (`immed`,         Some("You should wrap an immediate function invocation in parenthesis."))
-      case (`-W101`, _) => (`maxlen`,        None)
-      case (`-W110`, _) => (`quotmark`,      None)
-      case (`-W044`, _) => (`trail`,         None)
-      case (`-W072`, _) => (`maxparams`,     None)
-      case (`-W073`, _) => (`maxdepth`,      None)
-      case (`-W071`, _) => (`maxstatements`, None)
-      case (`-W015`, _) => (`indent`,        None)
-      case (`-W074`, _) => (`maxcomplexity`, None)
-      case (`-W033`, _) => (`asi`,           None)
-      case (`-W084`, _) => (`boss`,          None)
-      case (`-W093`, _) => (`boss`,          None)
-      case (`-W087`, _) => (`debug`,         None)
-      case (`-W041`, _) => (`null`,          None)
-      case (`-W054`, _) => (`evil`,          None)
-      case (`-W060`, _) => (`evil`,          None)
-      case (`-W061`, _) => (`evil`,          None)
-      case (`-W066`, _) => (`evil`,          None)
-      case (`-W030`, _) => (`expr`,          None)
-      case (`-W038`, _) => (`funcscope`,     None)
-      case (`-W091`, _) => (`funcscope`,     None)
-      case (`-W104`, _) => (`iterator`,      None)
-      case (`-W083`, _) => (`loopfunc`,      None)
-      case (`-W043`, _) => (`multistr`,      None)
-      case (`-W122`, _) => (`notypeof`,      None)
-      case (`-W004`, _) => (`shadow`,        None)
-      case (`-E044`, _) => (`shadow`,        None)
-      case (`-W103`, _) => (`proto`,         None)
-      case (`-W069`, _) => (`sub`,           None)
-      case (`-W057`, _) => (`supernew`,      None)
-    }.map{ case (rawId,msg) => (PatternId(rawId.toString),ResultMessage(msg.getOrElse(trimmed)))  }
+    JsHintPattern.values.find(_.toString == s"$minusPrefix$error").collect{
+      case `-W116` if msg.matches( """Expected '\{'.*""")                    => curly
+      case `-W116` if msg.matches( """Expected '(===|!==).*""")              => eqeqeq
+      case `-W016` if msg.matches( """.*use of '(&|\|)'.*""")                => bitwise
+      case `-W106` if msg.matches( """.*not in camel case.*""")              => camelcase
+      case `-W003` if msg.matches(""".*was used before it was defined.*""")  => latedef
+      case `-W059` if msg.matches(""".*(caller|callee).*""")                 => noarg
+      case `-W031` if msg.matches("""Do not use 'new' for side effects.*""") => nonew
+      case `-W016` if msg.matches("""Unexpected use of '(\+\+|--)'.*""")     => plusplus
+      case `-W117` if msg.matches(""".*is not defined.*""")                  => undef
+      case `-W098` if msg.matches(""".*is defined but never used.*""")       => unused
+      case `-W055` => newcap
+      case `-W089` => forin
+      case `-W121` => freeze
+      case `-W062` => immed
+      case `-W101` => maxlen
+      case `-W110` => quotmark
+      case `-W044` => trail
+      case `-W072` => maxparams
+      case `-W073` => maxdepth
+      case `-W071` => maxstatements
+      case `-W015` => indent
+      case `-W074` => maxcomplexity
+      case `-W033` => asi
+      case `-W084` => boss
+      case `-W093` => boss
+      case `-W087` => debug
+      case `-W041` => `null`
+      case `-W054` => evil
+      case `-W060` => evil
+      case `-W061` => evil
+      case `-W066` => evil
+      case `-W030` => expr
+      case `-W038` => funcscope
+      case `-W091` => funcscope
+      case `-W104` => iterator
+      case `-W083` => loopfunc
+      case `-W043` => multistr
+      case `-W122` => notypeof
+      case `-W004` => shadow
+      case `-E044` => shadow
+      case `-W103` => proto
+      case `-W069` => sub
+      case `-W057` => supernew
+    }.map{ case rawId =>
+      val message = rawId match{
+        case `immed` => "You should wrap an immediate function invocation in parenthesis."
+        case _ => msg
+      }
+
+      (PatternId(rawId.toString),ResultMessage(message))
+    }
   }
 
   private[this] def fileForConfig(config:JsObject) = tmpfile(".jshintrc",Json.stringify(config))
