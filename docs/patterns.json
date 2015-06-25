@@ -97,7 +97,7 @@
       "parameters" : [ {
         "name" : "unused",
         "description" : "only check for variables [vars] | also check parameters [strict] | default [true] allow unused parameters followed by used",
-        "default" : "true"
+        "default" : true
       } ],
       "level" : "Warn"
     }, {
@@ -108,7 +108,7 @@
       "parameters" : [ {
         "name" : "maxlen",
         "description" : "Reporting threshold for the number of characters per line",
-        "default" : "200"
+        "default" : 200
       } ],
       "level" : "Info"
     }, {
@@ -119,7 +119,7 @@
       "parameters" : [ {
         "name" : "indent",
         "description" : "Reporting threshold for the indentation",
-        "default" : "2"
+        "default" : 2
       } ],
       "level" : "Warn"
     }, {
@@ -136,7 +136,7 @@
       "parameters" : [ {
         "name" : "maxparams",
         "description" : "Reporting threshold for the number of parameters allowed per function",
-        "default" : "7"
+        "default" : 7
       } ],
       "level" : "Warn"
     }, {
@@ -147,7 +147,7 @@
       "parameters" : [ {
         "name" : "maxdepth",
         "description" : "Reporting threshold for the max depth",
-        "default" : "3"
+        "default" : 3
       } ],
       "level" : "Warn"
     }, {
@@ -158,7 +158,7 @@
       "parameters" : [ {
         "name" : "maxstatements",
         "description" : "Reporting threshold for the number of statements per function",
-        "default" : "3"
+        "default" : 3
       } ],
       "level" : "Warn"
     }, {
@@ -169,7 +169,7 @@
       "parameters" : [ {
         "name" : "maxcomplexity",
         "description" : "Reporting threshold for cyclomatic complexity per function",
-        "default" : "7"
+        "default" : 7
       } ],
       "level" : "Warn"
     }, {
