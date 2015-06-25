@@ -55,8 +55,8 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
 
       def settingSet[A](param:JsHintPattern, value:A = true )(implicit writes: Writes[A]) = settings.+((param,Json.toJson(value)))
       def settingWithParamValue[A](paramName:JsHintPattern,default:A)(implicit fmt: Format[A]) = {
-        val rawValue = pattern.parameters.collectFirst{ case paramDef if paramDef.name == ParameterName(paramName.toString) => paramDef.value.value }
-        val value = rawValue.flatMap{ case rawValue => Try(Json.parse(rawValue)).toOption.flatMap(_.asOpt[A]) }.getOrElse(default)
+        val rawValue = pattern.parameters.collectFirst{ case paramDef if paramDef.name == ParameterName(paramName.toString) => paramDef.value }
+        val value = rawValue.getOrElse(Json.toJson(default))
         settingSet(paramName,value)
       }
 
