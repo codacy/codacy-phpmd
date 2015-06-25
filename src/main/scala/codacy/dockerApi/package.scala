@@ -1,5 +1,6 @@
 package codacy
 
+import play.api.data.validation.ValidationError
 import play.api.libs.json.Reads.StringReads
 import play.api.libs.json.{Writes, Json, Reads}
 
@@ -37,7 +38,7 @@ package object dockerApi {
     implicit val r04 = StringReads.map( ToolName.apply )
     implicit val r03 = StringReads.map( IgnorePath.apply )
     implicit val r02 = Json.reads[PatternDef]
-    implicit val r01 = Json.reads[ToolConfig]
+    implicit val r01 = Json.reads[ToolConfig].filter(ValidationError("no patterns selected"))(_.patterns.nonEmpty)
     implicit val r00 = Json.reads[Config]
     Json.reads[Config]
   }

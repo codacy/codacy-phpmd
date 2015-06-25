@@ -12,7 +12,7 @@ trait Environment{
   lazy val config: Try[Config] = Try(Files.readAllBytes(configFilePath)).
     map( Json.parse ).flatMap(
       _.validate[Config].fold(
-        error => Failure(new Throwable("error parsing config")),
+        error => Failure(new Throwable(Json.stringify(JsError.toFlatJson(error)))),
         Success.apply
       )
     )
