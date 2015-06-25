@@ -1,0 +1,266 @@
+{ "name" : "jshint",
+  "patterns" : [
+    {
+      "patternId" : "bitwise",
+      "category" : "ErrorProne",
+      "title" : "Prohibit bitwise operators",
+      "description" : "Prohibits the use of bitwise operators such as ^ (XOR), (OR) and others",
+      "level" : "Warn"
+    }, {
+      "patternId" : "camelcase",
+      "category" : "CodeStyle",
+      "title" : "Enforce camel case",
+      "description" : "Requires all variable names to use either camelCase style or UPPER_CASE with underscores",
+      "level" : "Info"
+    }, {
+      "patternId" : "curly",
+      "category" : "CodeStyle",
+      "title" : "Enforce curly braces",
+      "description" : "Requires curly braces around blocks in loops and conditionals",
+      "level" : "Info"
+    }, {
+      "patternId" : "eqeqeq",
+      "category" : "ErrorProne",
+      "title" : "Enforce ===",
+      "description" : "Requires the use of === and !== instead of == and !=",
+      "level" : "Warn"
+    }, {
+      "patternId" : "forin",
+      "category" : "ErrorProne",
+      "title" : "Enforce hasOwnProperty in loops",
+      "description" : "Requires the filter of inherited properties of an object when you use the for in loop",
+      "level" : "Warn"
+    }, {
+      "patternId" : "freeze",
+      "category" : "ErrorProne",
+      "title" : "Prohibit native prototype overwriting",
+      "description" : "Prohibits overwriting prototypes of native objects such as Array, Date and so on",
+      "level" : "Warn"
+    }, {
+      "patternId" : "immed",
+      "category" : "CodeStyle",
+      "title" : "Enforce parentheses in function calls",
+      "description" : "Requires the use of parentheses in immediate function invocations",
+      "level" : "Info"
+    }, {
+      "patternId" : "latedef",
+      "category" : "ErrorProne",
+      "title" : "Enforce variable def before use",
+      "description" : "Prohibits the use of a variable before it was defined.",
+      "parameters" : [ {
+        "name" : "latedef",
+        "description" : "Declaration order verification. Check all [true] | Do not check functions [nofunc]",
+        "default" : "nofunc"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "newcap",
+      "category" : "CodeStyle",
+      "title" : "Enforce capitalized constructor",
+      "description" : "Requires capitalization of names of constructor functions",
+      "level" : "Info"
+    }, {
+      "patternId" : "noarg",
+      "category" : "Compatibility",
+      "title" : "Prohibit arguments.caller and arguments.callee",
+      "description" : "Prohibits the use of arguments.caller and arguments.callee",
+      "level" : "Warn"
+    }, {
+      "patternId" : "nonew",
+      "category" : "CodeStyle",
+      "title" : "Prohibit constructor functions",
+      "description" : "Prohibits the use of constructor functions for side-effects",
+      "level" : "Info"
+    }, {
+      "patternId" : "plusplus",
+      "category" : "CodeStyle",
+      "title" : "Prohibit ++ and --",
+      "description" : "Prohibits the use of unary increment and decrement operators",
+      "level" : "Info"
+    }, {
+      "patternId" : "quotmark",
+      "category" : "CodeStyle",
+      "title" : "Enforce quotation marks",
+      "description" : "Requires consistency of quotation marks used",
+      "level" : "Info"
+    }, {
+      "patternId" : "undef",
+      "category" : "ErrorProne",
+      "title" : "Prohibit undeclared variables",
+      "description" : "Prohibits the use of explicitly undeclared variables",
+      "level" : "Warn"
+    }, {
+      "patternId" : "unused",
+      "category" : "UnusedCode",
+      "title" : "Prohibit unused variables",
+      "description" : "Prohibits defining and never use variables",
+      "parameters" : [ {
+        "name" : "unused",
+        "description" : "only check for variables [vars] | also check parameters [strict] | default [true] allow unused parameters followed by used",
+        "default" : "true"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "maxlen",
+      "category" : "CodeStyle",
+      "title" : "Excessive line length",
+      "description" : "Requires every line to have a limit of characters",
+      "parameters" : [ {
+        "name" : "maxlen",
+        "description" : "Reporting threshold for the number of characters per line",
+        "default" : "200"
+      } ],
+      "level" : "Info"
+    }, {
+      "patternId" : "indent",
+      "category" : "CodeStyle",
+      "title" : "Indentation",
+      "description" : "Requires consistent indentation",
+      "parameters" : [ {
+        "name" : "indent",
+        "description" : "Reporting threshold for the indentation",
+        "default" : "2"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "trail",
+      "category" : "CodeStyle",
+      "title" : "Prohibit trailing whitespaces",
+      "description" : "Prohibits trailing whitespaces which can cause problems with multi-line strings",
+      "level" : "Info"
+    }, {
+      "patternId" : "maxparams",
+      "category" : "Complexity",
+      "title" : "Enforce number of function parameters",
+      "description" : "Requires functions to have a limit of formal parameters",
+      "parameters" : [ {
+        "name" : "maxparams",
+        "description" : "Reporting threshold for the number of parameters allowed per function",
+        "default" : "7"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "maxdepth",
+      "category" : "Complexity",
+      "title" : "Enforce block max depth",
+      "description" : "Require all blocks to have a max depth",
+      "parameters" : [ {
+        "name" : "maxdepth",
+        "description" : "Reporting threshold for the max depth",
+        "default" : "3"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "maxstatements",
+      "category" : "Complexity",
+      "title" : "Excessive statements",
+      "description" : "Requires all functions to have a limit of its statements",
+      "parameters" : [ {
+        "name" : "maxstatements",
+        "description" : "Reporting threshold for the number of statements per function",
+        "default" : "3"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "maxcomplexity",
+      "category" : "Complexity",
+      "title" : "Cyclomatic complexity",
+      "description" : "Requires code to have low cyclomatic complexity",
+      "parameters" : [ {
+        "name" : "maxcomplexity",
+        "description" : "Reporting threshold for cyclomatic complexity per function",
+        "default" : "7"
+      } ],
+      "level" : "Warn"
+    }, {
+      "patternId" : "asi",
+      "category" : "CodeStyle",
+      "title" : "Enforce semicolon use",
+      "description" : "Requires each line to end in a semicolon",
+      "level" : "Info"
+    }, {
+      "patternId" : "boss",
+      "category" : "ErrorProne",
+      "title" : "Prohibit assignments in comparisons",
+      "description" : "Prohibits the use of assignments in cases where comparisons are expected",
+      "level" : "Warn"
+    }, {
+      "patternId" : "debug",
+      "category" : "ErrorProne",
+      "title" : "Prohibit debugger statements",
+      "description" : "Prohibits debugger statements",
+      "level" : "Warn"
+    }, {
+      "patternId" : "null",
+      "category" : "ErrorProne",
+      "title" : "Prohibit == null comparisons",
+      "description" : "Prohibits == null comparisons",
+      "level" : "Warn"
+    }, {
+      "patternId" : "evil",
+      "category" : "Security",
+      "title" : "Prohibit eval",
+      "description" : "Prohibits the use of eval for security and performance reasons",
+      "level" : "Warn"
+    }, {
+      "patternId" : "expr",
+      "category" : "UnusedCode",
+      "title" : "Prohibit unusually placed expressions",
+      "description" : "Prohibits use of expressions where normally you would expect to see assignments or function calls",
+      "level" : "Warn"
+    }, {
+      "patternId" : "funcscope",
+      "category" : "ErrorProne",
+      "title" : "Prohibit variables used out of scope",
+      "description" : "Prohibits declaring variables inside of control structures while accessing them later from the outside",
+      "level" : "Warn"
+    }, {
+      "patternId" : "iterator",
+      "category" : "Compatibility",
+      "title" : "Prohibit __iterator__ property",
+      "description" : "Prohibits the use of __iterator__ property due to compatibility issues",
+      "level" : "Warn"
+    }, {
+      "patternId" : "loopfunc",
+      "category" : "ErrorProne",
+      "title" : "Prohibit function def inside loops",
+      "description" : "Prohibits the definition of function inside the body of loops",
+      "level" : "Warn"
+    }, {
+      "patternId" : "multistr",
+      "category" : "ErrorProne",
+      "title" : "Prohibit multi line strings",
+      "description" : "Prohibits the use of multi line strings due to whitespace error-proning",
+      "level" : "Warn"
+    }, {
+      "patternId" : "notypeof",
+      "category" : "ErrorProne",
+      "title" : "Prohibit invalid typeof operators",
+      "description" : "Prohibits  invalid typeof operator values",
+      "level" : "Warn"
+    }, {
+      "patternId" : "shadow",
+      "category" : "ErrorProne",
+      "title" : "Prohibit variable shadowing",
+      "description" : "Prohibits the declaration of a variable that had been already declared somewhere in the outer scope.",
+      "level" : "Warn"
+    }, {
+      "patternId" : "proto",
+      "category" : "ErrorProne",
+      "title" : "Prohibit __proto__ property",
+      "description" : "Prohibits the use of __proto__ property",
+      "level" : "Warn"
+    }, {
+      "patternId" : "sub",
+      "category" : "CodeStyle",
+      "title" : "Prohibit [] notation",
+      "description" : "Prohibit [] notation when it can be expressed in dot notation",
+      "level" : "Info"
+    }, {
+      "patternId" : "supernew",
+      "category" : "CodeStyle",
+      "title" : "Prohibit new function",
+      "description" : "Prohibits weird constructions like `new function () { ... }` and `new Object;",
+      "level" : "Info"
+    } ]
+}

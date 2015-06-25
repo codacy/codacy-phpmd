@@ -1,7 +1,7 @@
 package codacy.jsHint
 
-private[jsHint] object JsHintRule extends Enumeration{
-  type JsHintRule = Value
+private[jsHint] object JsHintPattern extends Enumeration{
+  type JsHintPattern = Value
   val bitwise,
   camelcase,
   curly,

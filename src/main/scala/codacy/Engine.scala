@@ -26,33 +26,3 @@ object Engine extends Environment{
       System.exit(1)
   }
 }
-
-/*object SampleConfig{
-
-  def fromCfg(toolConfig: ToolConfig) = {
-    Tool(sourcePath,toolConfig.patterns,Set(new IgnorePath("/tmp/test.js"))).map(_.map(pathCorrected => println(Json.stringify(Json.toJson(pathCorrected)))).toList)
-  }
-  import codacy.jsHint.JsHintRule
-
-  val prefix = "$minus"
-  val allPats = JsHintRule.values.map{ case v =>
-    val rawId = v.toString
-    val id = if(rawId.startsWith(prefix)) s"-${rawId.drop(prefix.length)}" else rawId
-    PatternDef(
-      ruleId = RuleId(id),
-      parameters = Set.empty
-    )
-  }
-
-  val value = Config(
-    tools = Set(ToolConfig(
-      name = Engine.toolName,
-      patterns = allPats.toSeq
-    )),
-    ignores = Set(new IgnorePath("/tmp/test.js"))
-  )
-
-  def apply() = value
-}
-
-*/

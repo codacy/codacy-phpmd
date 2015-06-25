@@ -3,7 +3,7 @@ package codacy
 import play.api.libs.json.Json
 
 package object jsHint {
-  import codacy.jsHint.JsHintRule._
+  import codacy.jsHint.JsHintPattern._
   private[jsHint] lazy val BaseSettings = Map(
     //Enforcing options "bitwise" -> false,
     camelcase     -> false,

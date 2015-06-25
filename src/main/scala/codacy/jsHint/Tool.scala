@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, StandardOpenOption}
 
 import codacy.dockerApi._
-import codacy.jsHint.JsHintRule._
+import codacy.jsHint.JsHintPattern._
 import play.api.libs.json.Reads.StringReads
 import play.api.libs.json.Writes.StringWrites
 import play.api.libs.json._
@@ -17,8 +17,8 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
   //TODO: write .jshintignore https://github.com/jshint/jshint/blob/master/examples/.jshintignore
   //--exclude-path
 
-  private[this] implicit class PatternIdentifier(ruleId: RuleId){
-    def asJsHintRule:Option[JsHintRule.Value] = JsHintRule.values.find(_.toString() == ruleId.value)
+  private[this] implicit class PatternIdentifier(ruleId: PatternId){
+    def asJsHintPattern:Option[JsHintPattern] = JsHintPattern.values.find(_.toString() == ruleId.value)
   }
 
   private[this] lazy val RegMatch = """(.*):[ line]*([0-9]*),[ col]*([0-9]*),(.*)\((.*)\)""".r
@@ -53,14 +53,14 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
   private[this] def configFromPatterns(patterns:Seq[PatternDef]): JsObject = {
     val settings = patterns.foldLeft( BaseSettings ){ (settings,pattern) =>
 
-      def settingSet[A](param:JsHintRule, value:A = true )(implicit writes: Writes[A]) = settings.+((param,Json.toJson(value)))
-      def settingWithParamValue[A](paramName:JsHintRule,default:A)(implicit fmt: Format[A]) = {
+      def settingSet[A](param:JsHintPattern, value:A = true )(implicit writes: Writes[A]) = settings.+((param,Json.toJson(value)))
+      def settingWithParamValue[A](paramName:JsHintPattern,default:A)(implicit fmt: Format[A]) = {
         val rawValue = pattern.parameters.collectFirst{ case paramDef if paramDef.name == ParameterName(paramName.toString) => paramDef.value.value }
         val value = rawValue.flatMap{ case rawValue => Try(Json.parse(rawValue)).toOption.flatMap(_.asOpt[A]) }.getOrElse(default)
         settingSet(paramName,value)
       }
 
-      pattern.ruleId.asJsHintRule.collect{
+      pattern.ruleId.asJsHintPattern.collect{
         case v @ `bitwise` =>
           settingSet(v) - `-W016`
         case v @ `camelcase` =>
@@ -147,10 +147,10 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
     )
   }
 
-  private[this] def ruleIdAndMessage(message: String, error: String): Option[(RuleId, ResultMessage)] = {
+  private[this] def ruleIdAndMessage(message: String, error: String): Option[(PatternId, ResultMessage)] = {
     val trimmed = message.trim
 
-    JsHintRule.values.find(_.toString == s"$minusPrefix$error").map( (_, trimmed) ).collect{
+    JsHintPattern.values.find(_.toString == s"$minusPrefix$error").map( (_, trimmed) ).collect{
       case (`-W116`, msg) if msg.matches( """Expected '\{'.*""")                   => (`curly`,     None)
       case (`-W116`, msg) if msg.matches( """Expected '(===|!==).*""")             => (`eqeqeq`,    None)
       case (`-W016`, msg) if msg.matches( """.*use of '(&|\|)'.*""")               => (`bitwise`,   None)
@@ -194,7 +194,7 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
       case (`-W103`, _) => (`proto`,         None)
       case (`-W069`, _) => (`sub`,           None)
       case (`-W057`, _) => (`supernew`,      None)
-    }.map{ case (rawId,msg) => (RuleId(rawId.toString),ResultMessage(msg.getOrElse(trimmed)))  }
+    }.map{ case (rawId,msg) => (PatternId(rawId.toString),ResultMessage(msg.getOrElse(trimmed)))  }
   }
 
   private[this] def fileForConfig(config:JsObject) = tmpfile(".jshintrc",Json.stringify(config))
