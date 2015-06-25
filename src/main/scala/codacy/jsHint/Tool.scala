@@ -1,10 +1,10 @@
-package codacy.jsHint
+package codacy.jshint
 
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, StandardOpenOption}
 
 import codacy.dockerApi._
-import codacy.jsHint.JsHintPattern._
+import codacy.jshint.JsHintPattern._
 import play.api.libs.json.Reads.StringReads
 import play.api.libs.json.Writes.StringWrites
 import play.api.libs.json._
@@ -26,7 +26,7 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
   private[this] lazy val minusPrefix = "$minus"
 
   def apply(sourcePath:Path, patterns:Seq[PatternDef],ignores:Iterable[IgnorePath]): Try[Iterable[Result]] = {
-    lazy val ruleIds = patterns.map(_.ruleId).toSet
+    lazy val ruleIds = patterns.map(_.patternId).toSet
     lazy val ignoreFile = fileForIgnores(ignores)
 
     fileForConfig(configFromPatterns(patterns)).map{ case configFile =>
@@ -60,7 +60,7 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
         settingSet(paramName,value)
       }
 
-      pattern.ruleId.asJsHintPattern.collect{
+      pattern.patternId.asJsHintPattern.collect{
         case v @ `bitwise` =>
           settingSet(v) - `-W016`
         case v @ `camelcase` =>

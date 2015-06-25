@@ -24,7 +24,7 @@ package object dockerApi {
   object IgnorePath{       def apply(v:String): IgnorePath       = new IgnorePath(v)      }
 
   case class ParameterDef(name:ParameterName,value:ParameterDefault)
-  case class PatternDef(ruleId: PatternId, parameters:Set[ParameterDef])
+  case class PatternDef(patternId: PatternId, parameters:Set[ParameterDef])
   case class ToolConfig(name:ToolName, patterns:Seq[PatternDef])
   case class Config(tools:Set[ToolConfig],ignores:Set[IgnorePath])
   case class Result(filename:SourcePath,message:ResultMessage,ruleId:PatternId,line: ResultLine)
