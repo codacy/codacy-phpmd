@@ -1,10 +1,15 @@
 package codacy
 
+import java.nio.file.Path
+
 import play.api.data.validation.ValidationError
 import play.api.libs.json.Reads.StringReads
 import play.api.libs.json.{JsValue, Writes, Json, Reads}
 
+import scala.util.Try
+
 package object dockerApi {
+  type Tool = ((Path,Seq[PatternDef]) => Try[Iterable[Result]])
 
   class PatternId(       val value:String) extends AnyVal
   class SourcePath(      val value:String) extends AnyVal

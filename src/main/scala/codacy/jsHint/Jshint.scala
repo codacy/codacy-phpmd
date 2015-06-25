@@ -12,7 +12,7 @@ import play.api.libs.json._
 import scala.sys.process._
 import scala.util.Try
 
-object Tool extends ((Path,Seq[PatternDef]) => Try[Iterable[Result]]){
+object Jshint extends Tool{
 
   private[this] implicit class PatternIdentifier(ruleId: PatternId){
     def asJsHintPattern:Option[JsHintPattern] = JsHintPattern.values.find(_.toString() == ruleId.value)

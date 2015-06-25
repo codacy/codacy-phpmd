@@ -1,11 +1,12 @@
-package codacy
+package codacy.dockerApi
 
-import java.nio.file.{Path, Files, Paths}
+import java.nio.file.{Files, Path, Paths}
+
 import play.api.libs.json._
-import scala.util.{Failure, Success, Try}
-import dockerApi._
 
-trait Environment{
+import scala.util.{Failure, Success, Try}
+
+trait DockerEnvironment{
 
   private[this] lazy val configFilePath = sourcePath.resolve(".codacy.json")
 
