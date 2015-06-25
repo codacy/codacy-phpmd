@@ -12,10 +12,7 @@ import play.api.libs.json._
 import scala.sys.process._
 import scala.util.Try
 
-object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable[Result]]){
-
-  //TODO: write .jshintignore https://github.com/jshint/jshint/blob/master/examples/.jshintignore
-  //--exclude-path
+object Tool extends ((Path,Seq[PatternDef]) => Try[Iterable[Result]]){
 
   private[this] implicit class PatternIdentifier(ruleId: PatternId){
     def asJsHintPattern:Option[JsHintPattern] = JsHintPattern.values.find(_.toString() == ruleId.value)
@@ -25,16 +22,15 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
 
   private[this] lazy val minusPrefix = "$minus"
 
-  def apply(sourcePath:Path, patterns:Seq[PatternDef],ignores:Iterable[IgnorePath]): Try[Iterable[Result]] = {
+  def apply(sourcePath:Path, patterns:Seq[PatternDef]): Try[Iterable[Result]] = {
     lazy val ruleIds = patterns.map(_.patternId).toSet
-    lazy val ignoreFile = fileForIgnores(ignores)
 
     fileForConfig(configFromPatterns(patterns)).map{ case configFile =>
 
       val configPath = configFile.toAbsolutePath().toString
       val cmd = Seq("jshint", "--config", configPath, "--verbose") ++
-        ignoreFile.toOption.fold(Seq.empty[String]){ case ignore => Seq("--exclude-path", ignore.toAbsolutePath().toString) } ++
-        Seq(sourcePath.toFile.getAbsolutePath)
+        //ignoreFile.toOption.fold(Seq.empty[String]){ case ignore => Seq("--exclude-path", ignore.toAbsolutePath().toString) } ++
+        Seq(sourcePath.toAbsolutePath.toString)
 
       cmd.lineStream_!.map( outputLineAsResult ).
       collect{ case Some(result) if ruleIds.contains(result.ruleId) => result }
@@ -53,10 +49,15 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
   private[this] def configFromPatterns(patterns:Seq[PatternDef]): JsObject = {
     val settings = patterns.foldLeft( BaseSettings ){ (settings,pattern) =>
 
-      def settingSet[A](param:JsHintPattern, value:A = true )(implicit writes: Writes[A]) = settings.+((param,Json.toJson(value)))
+      def settingSet[A](param:JsHintPattern, value:A = true )(implicit writes: Writes[A]) =
+        settings.+((param,Json.toJson(value)))
+
       def settingWithParamValue[A](paramName:JsHintPattern,default:A)(implicit fmt: Format[A]) = {
-        val rawValue = pattern.parameters.collectFirst{ case paramDef if paramDef.name == ParameterName(paramName.toString) => paramDef.value }
-        val value = rawValue.getOrElse(Json.toJson(default))
+
+        val value = pattern.parameters.collectFirst{
+          case paramDef if paramDef.name == ParameterName(paramName.toString) => paramDef.value
+        }.getOrElse( Json.toJson(default) )
+
         settingSet(paramName,value)
       }
 
@@ -198,11 +199,6 @@ object Tool extends ((Path,Seq[PatternDef],Iterable[IgnorePath]) => Try[Iterable
   }
 
   private[this] def fileForConfig(config:JsObject) = tmpfile(".jshintrc",Json.stringify(config))
-
-  private[this] def fileForIgnores(ignores:Iterable[IgnorePath]) = tmpfile(
-    "jshintignore",
-    ignores.map( _.value ).mkString(System.lineSeparator())
-  )
 
   private[this] def tmpfile(prefix:String,content:String) = {
     Try(Files.write(

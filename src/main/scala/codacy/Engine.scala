@@ -12,7 +12,7 @@ object Engine extends Environment{
   def main(args: Array[String]): Unit = {
     config.flatMap{ case config =>
       config.tools.collectFirst{ case toolConfig if toolConfig.name == toolName =>
-        Tool(sourcePath,toolConfig.patterns,config.ignores)
+        Tool(sourcePath,toolConfig.patterns)
       }.getOrElse( Failure(new Throwable(s"no config for $toolName")) )
     } match{
       case Success(results) =>
