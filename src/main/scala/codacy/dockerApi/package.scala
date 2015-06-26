@@ -29,7 +29,7 @@ package object dockerApi {
   case class PatternDef(patternId: PatternId, parameters:Set[ParameterDef])
   case class ToolConfig(name:ToolName, patterns:Seq[PatternDef])
   case class Config(tools:Set[ToolConfig])
-  case class Result(filename:SourcePath,message:ResultMessage,ruleId:PatternId,line: ResultLine)
+  case class Result(filename:SourcePath,message:ResultMessage,patternId:PatternId,line: ResultLine)
 
   implicit lazy val reader: Reads[Config] = {
     implicit val r08 = StringReads.map( ParameterName.apply )
