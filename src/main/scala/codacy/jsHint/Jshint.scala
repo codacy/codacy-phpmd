@@ -31,7 +31,7 @@ object Jshint extends Tool{
       val cmd = Seq("jshint", "--config", configPath, "--verbose", sourcePath.toAbsolutePath.toString)
 
       cmd.lineStream_!.map( outputLineAsResult ).
-      collect{ case Some(result) if ruleIds.contains(result.ruleId) => result }
+      collect{ case Some(result) if ruleIds.contains(result.patternId) => result }
     }
   }
 
