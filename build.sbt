@@ -5,11 +5,7 @@ name := """codacy-engine-jshint"""
 
 version := "1.0-SNAPSHOT"
 
-val metaVersion = "0.1.0-SNAPSHOT"
-
 val languageVersion = "2.11.7"
-
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 scalaVersion := languageVersion
 
