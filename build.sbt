@@ -14,17 +14,7 @@ resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repos
 scalaVersion := languageVersion
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor" % "2.3.11",
-  "com.typesafe.play" %% "play-json" % "2.3.8",
-  "com.typesafe.play" %% "play-ws" % "2.3.8",
-  "org.scalameta" %% "scalameta" % metaVersion,
-  "org.scalameta" %% "scalameta-foundation" % metaVersion,
-  // "org.scalameta" % s"scalahost_$languageVersion" % metaVersion,
-  "org.scala-lang" % "scala-reflect" % languageVersion,
-  "org.scala-lang" % "scala-compiler" % languageVersion,
-  "org.scala-lang" % "scala-library" % languageVersion,
-  "org.apache.spark" %% "spark-hive" % "1.4.0",
-  "commons-io" % "commons-io" % "2.4"
+  "com.typesafe.play" %% "play-json" % "2.3.8"
 )
 
 enablePlugins(JavaAppPackaging)

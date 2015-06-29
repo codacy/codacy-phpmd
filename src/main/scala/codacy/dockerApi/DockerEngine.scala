@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 import scala.util.{Failure, Success}
 
 abstract class DockerEngine(private val name:String,Tool:Tool) extends DockerEnvironment{
-  lazy val toolName: ToolName = ToolName("jshint")
+  lazy val toolName: ToolName = ToolName(name)
 
   def main(args: Array[String]): Unit = {
     config.flatMap{ case config =>
