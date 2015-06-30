@@ -1,5 +1,8 @@
+import java.nio.file.Paths
+
 import com.typesafe.sbt.SbtNativePackager.packageArchetype
 import com.typesafe.sbt.packager.docker._
+import Path.relativeTo
 
 name := """codacy-engine-jshint"""
 
@@ -17,7 +20,7 @@ enablePlugins(JavaAppPackaging)
 
 enablePlugins(DockerPlugin)
 
-version in Docker := "latest"
+version in Docker := "1.0"
 
 val JAVA_VERSION_MAJOR = 8
 
@@ -60,6 +63,17 @@ val installAll =
     |rm -rf /tmp/* /var/cache/apk/* &&
     |apk del curl ca-certificates &&
     |echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf""".stripMargin.replaceAll(System.lineSeparator()," ")
+
+mappings in Universal <++= (resourceDirectory in Compile) map { (resourceDir: File) =>
+  val src = resourceDir / "docs"
+  val dest = "/docs"
+
+  for {
+      path <- (src ***).get
+      if !path.isDirectory
+    } yield path -> path.toString.replaceFirst(src.toString, dest)
+
+}
 
 dockerCommands := Seq(
   Cmd("FROM","gliderlabs/alpine:3.2"),
