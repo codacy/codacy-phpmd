@@ -26,7 +26,7 @@ package object dockerApi {
   object ParameterName{    def apply(v:String): ParameterName    = new ParameterName(v)   }
 
   case class ParameterDef(name:ParameterName,value:JsValue)
-  case class PatternDef(patternId: PatternId, parameters:Set[ParameterDef])
+  case class PatternDef(patternId: PatternId, parameters:Option[Set[ParameterDef]])
   case class ToolConfig(name:ToolName, patterns:Seq[PatternDef])
   case class Config(tools:Set[ToolConfig])
   case class Result(filename:SourcePath,message:ResultMessage,patternId:PatternId,line: ResultLine)

@@ -5,7 +5,7 @@
       "category" : "ErrorProne",
       "title" : "Prohibit bitwise operators",
       "description" : "Prohibits the use of bitwise operators such as ^ (XOR), (OR) and others",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "camelcase",
       "category" : "CodeStyle",
@@ -23,19 +23,19 @@
       "category" : "ErrorProne",
       "title" : "Enforce ===",
       "description" : "Requires the use of === and !== instead of == and !=",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "forin",
       "category" : "ErrorProne",
       "title" : "Enforce hasOwnProperty in loops",
       "description" : "Requires the filter of inherited properties of an object when you use the for in loop",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "freeze",
       "category" : "ErrorProne",
       "title" : "Prohibit native prototype overwriting",
       "description" : "Prohibits overwriting prototypes of native objects such as Array, Date and so on",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "immed",
       "category" : "CodeStyle",
@@ -52,7 +52,7 @@
         "description" : "Declaration order verification. Check all [true] | Do not check functions [nofunc]",
         "default" : "nofunc"
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "newcap",
       "category" : "CodeStyle",
@@ -64,7 +64,7 @@
       "category" : "Compatibility",
       "title" : "Prohibit arguments.caller and arguments.callee",
       "description" : "Prohibits the use of arguments.caller and arguments.callee",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "nonew",
       "category" : "CodeStyle",
@@ -88,7 +88,7 @@
       "category" : "ErrorProne",
       "title" : "Prohibit undeclared variables",
       "description" : "Prohibits the use of explicitly undeclared variables",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "unused",
       "category" : "UnusedCode",
@@ -99,7 +99,7 @@
         "description" : "only check for variables [vars] | also check parameters [strict] | default [true] allow unused parameters followed by used",
         "default" : true
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "maxlen",
       "category" : "CodeStyle",
@@ -121,7 +121,7 @@
         "description" : "Reporting threshold for the indentation",
         "default" : 2
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "trail",
       "category" : "CodeStyle",
@@ -138,7 +138,7 @@
         "description" : "Reporting threshold for the number of parameters allowed per function",
         "default" : 7
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "maxdepth",
       "category" : "Complexity",
@@ -149,7 +149,7 @@
         "description" : "Reporting threshold for the max depth",
         "default" : 3
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "maxstatements",
       "category" : "Complexity",
@@ -160,7 +160,7 @@
         "description" : "Reporting threshold for the number of statements per function",
         "default" : 3
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "maxcomplexity",
       "category" : "Complexity",
@@ -171,7 +171,7 @@
         "description" : "Reporting threshold for cyclomatic complexity per function",
         "default" : 7
       } ],
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "asi",
       "category" : "CodeStyle",
@@ -183,73 +183,73 @@
       "category" : "ErrorProne",
       "title" : "Prohibit assignments in comparisons",
       "description" : "Prohibits the use of assignments in cases where comparisons are expected",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "debug",
       "category" : "ErrorProne",
       "title" : "Prohibit debugger statements",
       "description" : "Prohibits debugger statements",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "null",
       "category" : "ErrorProne",
       "title" : "Prohibit == null comparisons",
       "description" : "Prohibits == null comparisons",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "evil",
       "category" : "Security",
       "title" : "Prohibit eval",
       "description" : "Prohibits the use of eval for security and performance reasons",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "expr",
       "category" : "UnusedCode",
       "title" : "Prohibit unusually placed expressions",
       "description" : "Prohibits use of expressions where normally you would expect to see assignments or function calls",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "funcscope",
       "category" : "ErrorProne",
       "title" : "Prohibit variables used out of scope",
       "description" : "Prohibits declaring variables inside of control structures while accessing them later from the outside",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "iterator",
       "category" : "Compatibility",
       "title" : "Prohibit __iterator__ property",
       "description" : "Prohibits the use of __iterator__ property due to compatibility issues",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "loopfunc",
       "category" : "ErrorProne",
       "title" : "Prohibit function def inside loops",
       "description" : "Prohibits the definition of function inside the body of loops",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "multistr",
       "category" : "ErrorProne",
       "title" : "Prohibit multi line strings",
       "description" : "Prohibits the use of multi line strings due to whitespace error-proning",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "notypeof",
       "category" : "ErrorProne",
       "title" : "Prohibit invalid typeof operators",
       "description" : "Prohibits  invalid typeof operator values",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "shadow",
       "category" : "ErrorProne",
       "title" : "Prohibit variable shadowing",
       "description" : "Prohibits the declaration of a variable that had been already declared somewhere in the outer scope.",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "proto",
       "category" : "ErrorProne",
       "title" : "Prohibit __proto__ property",
       "description" : "Prohibits the use of __proto__ property",
-      "level" : "Warn"
+      "level" : "Warning"
     }, {
       "patternId" : "sub",
       "category" : "CodeStyle",

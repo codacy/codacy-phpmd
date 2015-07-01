@@ -80,7 +80,8 @@ dockerCommands := Seq(
   Cmd("ENV","JAVA_HOME /jre"),
   Cmd("ENV", "PATH ${PATH}:${JAVA_HOME}/bin"),
   Cmd("ENV", "ENV LANG C.UTF-8")
-) ++ dockerCommands.value.map(cmd => List(cmd)).collect{
+) ++ dockerCommands.value.map(cmd => List(cmd)).map{
     case Cmd("FROM",_) :: _ => Nil //aka drop it
-    case (add@Cmd("ADD","opt /opt")) :: Nil => List(add,Cmd("RUN","mv opt/docker/docs /docs"))
+    case (add@Cmd("ADD","opt /opt")) :: Nil => List(add,Cmd("RUN","mv /opt/docker/docs /docs"))
+    case other => other
 }.flatten

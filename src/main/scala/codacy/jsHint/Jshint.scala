@@ -52,9 +52,9 @@ object Jshint extends Tool{
 
       def settingWithParamValue[A](paramName:JsHintPattern,default:A)(implicit fmt: Format[A]) = {
 
-        val value = pattern.parameters.collectFirst{
+        val value = pattern.parameters.flatMap(_.collectFirst{
           case paramDef if paramDef.name == ParameterName(paramName.toString) => paramDef.value
-        }.getOrElse( Json.toJson(default) )
+        }).getOrElse( Json.toJson(default) )
 
         settingSet(paramName,value)
       }
