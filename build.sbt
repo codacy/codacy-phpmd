@@ -72,7 +72,6 @@ mappings in Universal <++= (resourceDirectory in Compile) map { (resourceDir: Fi
       path <- (src ***).get
       if !path.isDirectory
     } yield path -> path.toString.replaceFirst(src.toString, dest)
-
 }
 
 dockerCommands := Seq(
@@ -81,4 +80,7 @@ dockerCommands := Seq(
   Cmd("ENV","JAVA_HOME /jre"),
   Cmd("ENV", "PATH ${PATH}:${JAVA_HOME}/bin"),
   Cmd("ENV", "ENV LANG C.UTF-8")
-) ++ dockerCommands.value.filterNot{ case Cmd("FROM",_) => true; case _ => false}
+) ++ dockerCommands.value.map(cmd => List(cmd)).collect{
+    case Cmd("FROM",_) :: _ => Nil //aka drop it
+    case (add@Cmd("ADD","opt /opt")) :: Nil => List(add,Cmd("RUN","mv opt/docker/docs /docs"))
+}.flatten
