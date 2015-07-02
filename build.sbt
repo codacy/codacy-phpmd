@@ -1,6 +1,6 @@
 import com.typesafe.sbt.packager.docker._
 
-name := """codacy-engine-jshint"""
+name := """codacy-engine-phpmd"""
 
 version := "1.0-SNAPSHOT"
 
@@ -33,8 +33,13 @@ val jreUrl = s"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION_MAJOR" 
 val jreExtractedFolderName = s"""jdk1.$JAVA_VERSION_MAJOR.0_$JAVA_VERSION_MINOR/jre"""
 
 val installAll =
-  s"""apk-install bash curl ca-certificates nodejs python make gcc g++ libc-dev &&
-    |npm install -g jshint &&
+  s"""apk-install bash curl ca-certificates php php-xml php-cli php-pdo php-curl php-cli php-pdo php-curl php-json php-phar php-ctype php-openssl php-dom make gcc g++ libc-dev &&
+    |curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer &&
+    |composer global require "sebastian/phpcpd=2.0.1" &&
+    |composer global require "phpmd/phpmd=2.2.2" &&
+    |mkdir /opt && mv /root/.composer /opt/composer &&
+    |chmod -R 777 /opt &&
+    |ln -s /opt/composer/vendor/bin/phpmd /bin/phpmd &&
     |cd /tmp &&
     |curl -o glibc-2.21-r2.apk "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk" &&
     |apk add --allow-untrusted glibc-2.21-r2.apk &&
