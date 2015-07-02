@@ -1,8 +1,4 @@
-import java.nio.file.Paths
-
-import com.typesafe.sbt.SbtNativePackager.packageArchetype
 import com.typesafe.sbt.packager.docker._
-import Path.relativeTo
 
 name := """codacy-engine-jshint"""
 
