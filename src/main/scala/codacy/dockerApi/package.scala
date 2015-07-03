@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Writes, Json, Reads}
 import scala.util.Try
 
 package object dockerApi {
-  type Tool = ((Path,Seq[PatternDef]) => Try[Iterable[Result]])
+  type Tool = ((Path,Seq[PatternDef],Set[PatternSpec]) => Try[Iterable[Result]])
 
   class PatternId(       val value:String) extends AnyVal
   class SourcePath(      val value:String) extends AnyVal
@@ -28,18 +28,28 @@ package object dockerApi {
   case class ParameterDef(name:ParameterName,value:JsValue)
   case class PatternDef(patternId: PatternId, parameters:Option[Set[ParameterDef]])
   case class ToolConfig(name:ToolName, patterns:Seq[PatternDef])
-  case class Config(tools:Set[ToolConfig])
+  case class FullConfig(tools:Set[ToolConfig])
+
+  //there are other fields like name and description but i don't care about them inside the tool
+  case class ParameterSpec(name:ParameterName, default:JsValue)
+  case class PatternSpec(patternId: PatternId, parameters:Option[Set[ParameterSpec]])
+  case class Spec(name:ToolName,patterns:Set[PatternSpec])
+
   case class Result(filename:SourcePath,message:ResultMessage,patternId:PatternId,line: ResultLine)
 
-  implicit lazy val reader: Reads[Config] = {
+  implicit lazy val (configReader: Reads[FullConfig],specificationReader:Reads[Spec]) = {
     implicit val r08 = StringReads.map( ParameterName.apply )
     implicit val r05 = StringReads.map( PatternId.apply )
     implicit val r04 = StringReads.map( ToolName.apply )
     implicit val r06 = Json.reads[ParameterDef]
     implicit val r02 = Json.reads[PatternDef]
     implicit val r01 = Json.reads[ToolConfig].filter(ValidationError("no patterns selected"))(_.patterns.nonEmpty)
-    implicit val r00 = Json.reads[Config]
-    Json.reads[Config]
+    implicit val r00 = Json.reads[FullConfig]
+
+    implicit val r11 = Json.reads[ParameterSpec]
+    implicit val r10 = Json.reads[PatternSpec]
+
+    (Json.reads[FullConfig],Json.reads[Spec])
   }
 
   implicit lazy val writer: Writes[Result] = {
@@ -49,4 +59,5 @@ package object dockerApi {
     implicit val r0 = Writes((v:SourcePath)    => Json.toJson(v.value))
     Json.writes[Result]
   }
+
 }

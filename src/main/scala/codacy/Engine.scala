@@ -1,6 +1,6 @@
 package codacy
 
 import codacy.dockerApi.DockerEngine
-import codacy.jshint.Jshint
+import codacy.phpmd.PhpMd
 
-object Engine extends DockerEngine("jshint",Jshint)
+object Engine extends DockerEngine(PhpMd)

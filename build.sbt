@@ -9,7 +9,8 @@ val languageVersion = "2.11.7"
 scalaVersion := languageVersion
 
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-json" % "2.3.8"
+  "com.typesafe.play" %% "play-json" % "2.3.8" withSources(),
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.4" withSources()
 )
 
 enablePlugins(JavaAppPackaging)
