@@ -11,8 +11,7 @@ import scala.util.Try
 
 object PhpMd extends Tool{
 
-  def apply(path: Path, patternDefs: Seq[PatternDef],patternSpecs: Set[PatternSpec]): Try[Iterable[Result]] = {
-    implicit val specs = patternSpecs
+  def apply(path: Path, patternDefs: Seq[PatternDef])(implicit spec: Spec): Try[Iterable[Result]] = {
     Try(configFromPatterns(patternDefs)).flatMap{ case config =>
 
       fileForConfig(config).flatMap{ case configFile =>
@@ -29,13 +28,13 @@ object PhpMd extends Tool{
     s"rulesets/$rsPart.xml/$ruleName"
   }
 
-  private[this] def patternIdByRuleNameAndRuleSet(ruleName: String, ruleSet:String)(implicit spec: Set[PatternSpec]):Option[PatternId] = {
-    spec.collectFirst{ case pattern if pattern.patternId.value == xmlLocation(ruleName,ruleSet) =>
+  private[this] def patternIdByRuleNameAndRuleSet(ruleName: String, ruleSet:String)(implicit spec: Spec):Option[PatternId] = {
+    spec.patterns.collectFirst{ case pattern if pattern.patternId.value == xmlLocation(ruleName,ruleSet) =>
       pattern.patternId
     }
   }
 
-  private[this] def outputParsed(output:String)(implicit spec: Set[PatternSpec]): Set[Result] = {
+  private[this] def outputParsed(output:String)(implicit spec: Spec): Set[Result] = {
     Try(XML.loadString(output)).map{ case elem =>
       (elem \ "file").flatMap{ case file =>
         (file \ "violation").flatMap{ case violation =>
@@ -61,7 +60,7 @@ object PhpMd extends Tool{
     <property name={ parameterDef.name.value } value={ Json.stringify(parameterDef.value) } />
   }
 
-  private[this] def toXmlRule(patternDef: PatternDef)(implicit spec:Iterable[PatternSpec]): Elem = {
+  private[this] def toXmlRule(patternDef: PatternDef)(implicit spec:Spec): Elem = {
     //get all default parameters and replace the ones supplied
     val defaultParams = defaultParametersFor(patternDef)
     val suppliedParams = patternDef.parameters.getOrElse(Set.empty)
@@ -71,8 +70,8 @@ object PhpMd extends Tool{
     <rule ref={patternDef.patternId.value}><properties>{properties}</properties></rule>
   }
 
-  private[this] def defaultParametersFor(patternDef: PatternDef)(implicit spec:Iterable[PatternSpec]):Set[ParameterDef] = {
-    spec.collectFirst{
+  private[this] def defaultParametersFor(patternDef: PatternDef)(implicit spec:Spec):Set[ParameterDef] = {
+    spec.patterns.collectFirst{
       case patternSpec if patternSpec.patternId == patternDef.patternId =>
         patternSpec.parameters.map(_.map{ case parameter =>
           ParameterDef( parameter.name, parameter.default )
@@ -83,7 +82,7 @@ object PhpMd extends Tool{
     }
   }
 
-  private[this] def configFromPatterns(patterns:Seq[PatternDef])(implicit spec:Iterable[PatternSpec]): Elem =
+  private[this] def configFromPatterns(patterns:Seq[PatternDef])(implicit spec:Spec): Elem =
     <ruleset name="PHPMD rule set"
              xmlns="http://pmd.sf.net/ruleset/1.0.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

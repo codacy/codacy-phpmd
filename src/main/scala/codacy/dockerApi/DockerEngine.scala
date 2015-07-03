@@ -8,9 +8,7 @@ abstract class DockerEngine(Tool:Tool) extends DockerEnvironment{
   def main(args: Array[String]): Unit = {
     spec.flatMap{ implicit spec =>
       config.flatMap{ case config =>
-        config.tools.collectFirst{ case toolConfig if toolConfig.name == spec.name =>
-          Tool(sourcePath,toolConfig.patterns,spec.patterns)
-        }.getOrElse( Failure(new Throwable(s"no config for ${spec.name}")) )
+        Tool(sourcePath,config.patterns)
       }
     } match{
       case Success(results) =>
