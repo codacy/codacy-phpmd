@@ -4,19 +4,19 @@ import java.nio.file.Path
 
 import play.api.data.validation.ValidationError
 import play.api.libs.json.Reads.StringReads
-import play.api.libs.json.{JsValue, Writes, Json, Reads}
+import play.api.libs.json._
 
 import scala.util.Try
 
 package object dockerApi {
-  type Tool = ((Path,Seq[PatternDef],Set[PatternSpec]) => Try[Iterable[Result]])
+  type Tool = (Path,Seq[PatternDef],Set[PatternSpec]) => Try[Iterable[Result]]
 
-  class PatternId(       val value:String) extends AnyVal
-  class SourcePath(      val value:String) extends AnyVal
-  class ResultMessage(   val value:String) extends AnyVal
-  class ResultLine(      val value:Int)    extends AnyVal
-  class ToolName(        val value:String) extends AnyVal
-  class ParameterName(   val value:String) extends AnyVal
+  class PatternId(       val value:String) extends AnyVal{ override def toString = value.toString }
+  class SourcePath(      val value:String) extends AnyVal{ override def toString = value.toString }
+  class ResultMessage(   val value:String) extends AnyVal{ override def toString = value.toString }
+  class ResultLine(      val value:Int)    extends AnyVal{ override def toString = value.toString }
+  class ToolName(        val value:String) extends AnyVal{ override def toString = value.toString }
+  class ParameterName(   val value:String) extends AnyVal{ override def toString = value.toString }
 
   object PatternId{        def apply(v:String): PatternId        = new PatternId(v)       }
   object SourcePath{       def apply(v:String): SourcePath       = new SourcePath(v)      }
@@ -37,19 +37,28 @@ package object dockerApi {
 
   case class Result(filename:SourcePath,message:ResultMessage,patternId:PatternId,line: ResultLine)
 
-  implicit lazy val (configReader: Reads[FullConfig],specificationReader:Reads[Spec]) = {
-    implicit val r08 = StringReads.map( ParameterName.apply )
-    implicit val r05 = StringReads.map( PatternId.apply )
-    implicit val r04 = StringReads.map( ToolName.apply )
-    implicit val r06 = Json.reads[ParameterDef]
-    implicit val r02 = Json.reads[PatternDef]
-    implicit val r01 = Json.reads[ToolConfig].filter(ValidationError("no patterns selected"))(_.patterns.nonEmpty)
-    implicit val r00 = Json.reads[FullConfig]
+  private[this] implicit val r08 = StringReads.map( ParameterName.apply )
+  private[this] implicit val r05 = StringReads.map( PatternId.apply )
+  private[this] implicit val r04 = StringReads.map( ToolName.apply )
 
+  implicit lazy val specReader: Reads[Spec] = {
     implicit val r11 = Json.reads[ParameterSpec]
     implicit val r10 = Json.reads[PatternSpec]
+    Json.reads[Spec]
+  }
 
-    (Json.reads[FullConfig],Json.reads[Spec])
+  implicit def configReader(implicit spec:Spec): Reads[FullConfig] = {
+    implicit val r06 = Json.reads[ParameterDef]
+    implicit val r02 = Json.reads[PatternDef].flatMap{ case pattern =>
+      Reads((_:JsValue) =>
+        if (spec.patterns.exists(_.patternId == pattern.patternId)) JsSuccess(pattern)
+        else JsError(s"don't know this pattern: ${pattern.patternId}")
+      )
+    }
+    implicit val r01 = Json.reads[ToolConfig].
+      filter(ValidationError("no patterns selected"))(_.patterns.nonEmpty)
+
+    Json.reads[FullConfig]
   }
 
   implicit lazy val writer: Writes[Result] = {

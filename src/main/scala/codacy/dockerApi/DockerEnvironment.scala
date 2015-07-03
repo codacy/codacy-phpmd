@@ -11,7 +11,7 @@ trait DockerEnvironment{
 
   private[this] lazy val configFilePath = sourcePath.resolve(".codacy.json")
 
-  lazy val config: Try[FullConfig] = Try(Files.readAllBytes(configFilePath)).
+  def config(implicit spec: Spec): Try[FullConfig] = Try(Files.readAllBytes(configFilePath)).
     map( Json.parse ).flatMap(
       _.validate[FullConfig].fold(
         error => Failure(new Throwable(Json.stringify(JsError.toFlatJson(error)))),

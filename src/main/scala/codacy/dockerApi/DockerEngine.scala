@@ -6,7 +6,7 @@ import scala.util.{Failure, Success}
 abstract class DockerEngine(Tool:Tool) extends DockerEnvironment{
 
   def main(args: Array[String]): Unit = {
-    spec.flatMap{ case spec =>
+    spec.flatMap{ implicit spec =>
       config.flatMap{ case config =>
         config.tools.collectFirst{ case toolConfig if toolConfig.name == spec.name =>
           Tool(sourcePath,toolConfig.patterns,spec.patterns)
