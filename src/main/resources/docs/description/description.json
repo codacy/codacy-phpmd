@@ -1,192 +1,281 @@
 {
   "name":"jshint",
-  "patterns":[ {
-    "patternId" : "bitwise",
-    "title" : "Prohibit bitwise operators",
-    "description" : "Prohibits the use of bitwise operators such as ^ (XOR), (OR) and others"
-  }, {
-    "patternId" : "camelcase",
-    "title" : "Enforce camel case",
-    "description" : "Requires all variable names to use either camelCase style or UPPER_CASE with underscores"
-  }, {
-    "patternId" : "curly",
-    "title" : "Enforce curly braces",
-    "description" : "Requires curly braces around blocks in loops and conditionals"
-  }, {
-    "patternId" : "eqeqeq",
-    "title" : "Enforce ===",
-    "description" : "Requires the use of === and !== instead of == and !="
-  }, {
-    "patternId" : "forin",
-    "title" : "Enforce hasOwnProperty in loops",
-    "description" : "Requires the filter of inherited properties of an object when you use the for in loop"
-  }, {
-    "patternId" : "freeze",
-    "title" : "Prohibit native prototype overwriting",
-    "description" : "Prohibits overwriting prototypes of native objects such as Array, Date and so on"
-  }, {
-    "patternId" : "immed",
-    "title" : "Enforce parentheses in function calls",
-    "description" : "Requires the use of parentheses in immediate function invocations"
-  }, {
-    "patternId" : "latedef",
-    "title" : "Enforce variable def before use",
-    "description" : "Prohibits the use of a variable before it was defined.",
-    "parameters" : [ {
-      "name" : "latedef",
-      "description" : "Declaration order verification. Check all [true] | Do not check functions [nofunc]",
-      "default" : "nofunc"
-    } ]
-  }, {
-    "patternId" : "newcap",
-    "title" : "Enforce capitalized constructor",
-    "description" : "Requires capitalization of names of constructor functions"
-  }, {
-    "patternId" : "noarg",
-    "title" : "Prohibit arguments.caller and arguments.callee",
-    "description" : "Prohibits the use of arguments.caller and arguments.callee"
-  }, {
-    "patternId" : "nonew",
-    "title" : "Prohibit constructor functions",
-    "description" : "Prohibits the use of constructor functions for side-effects"
-  }, {
-    "patternId" : "plusplus",
-    "title" : "Prohibit ++ and --",
-    "description" : "Prohibits the use of unary increment and decrement operators"
-  }, {
-    "patternId" : "quotmark",
-    "title" : "Enforce quotation marks",
-    "description" : "Requires consistency of quotation marks used"
-  }, {
-    "patternId" : "undef",
-    "title" : "Prohibit undeclared variables",
-    "description" : "Prohibits the use of explicitly undeclared variables"
-  }, {
-    "patternId" : "unused",
-    "title" : "Prohibit unused variables",
-    "description" : "Prohibits defining and never use variables",
-    "parameters" : [ {
-      "name" : "unused",
-      "description" : "only check for variables [vars] | also check parameters [strict] | default [true] allow unused parameters followed by used",
-      "default" : true
-    } ]
-  }, {
-    "patternId" : "maxlen",
-    "title" : "Excessive line length",
-    "description" : "Requires every line to have a limit of characters",
-    "parameters" : [ {
-      "name" : "maxlen",
-      "description" : "Reporting threshold for the number of characters per line",
-      "default" : 200
-    } ]
-  }, {
-    "patternId" : "indent",
-    "title" : "Indentation",
-    "description" : "Requires consistent indentation",
-    "parameters" : [ {
-      "name" : "indent",
-      "description" : "Reporting threshold for the indentation",
-      "default" : 2
-    } ]
-  }, {
-    "patternId" : "trail",
-    "title" : "Prohibit trailing whitespaces",
-    "description" : "Prohibits trailing whitespaces which can cause problems with multi-line strings"
-  }, {
-    "patternId" : "maxparams",
-    "title" : "Enforce number of function parameters",
-    "description" : "Requires functions to have a limit of formal parameters",
-    "parameters" : [ {
-      "name" : "maxparams",
-      "description" : "Reporting threshold for the number of parameters allowed per function",
-      "default" : 7
-    } ]
-  }, {
-    "patternId" : "maxdepth",
-    "title" : "Enforce block max depth",
-    "description" : "Require all blocks to have a max depth",
-    "parameters" : [ {
-      "name" : "maxdepth",
-      "description" : "Reporting threshold for the max depth",
-      "default" : 3
-    } ]
-  }, {
-    "patternId" : "maxstatements",
-    "title" : "Excessive statements",
-    "description" : "Requires all functions to have a limit of its statements",
-    "parameters" : [ {
-      "name" : "maxstatements",
-      "description" : "Reporting threshold for the number of statements per function",
-      "default" : 3
-    } ]
-  }, {
-    "patternId" : "maxcomplexity",
-    "title" : "Cyclomatic complexity",
-    "description" : "Requires code to have low cyclomatic complexity",
-    "parameters" : [ {
-      "name" : "maxcomplexity",
-      "description" : "Reporting threshold for cyclomatic complexity per function",
-      "default" : 7
-    } ]
-  }, {
-    "patternId" : "asi",
-    "title" : "Enforce semicolon use",
-    "description" : "Requires each line to end in a semicolon"
-  }, {
-    "patternId" : "boss",
-    "title" : "Prohibit assignments in comparisons",
-    "description" : "Prohibits the use of assignments in cases where comparisons are expected"
-  }, {
-    "patternId" : "debug",
-    "title" : "Prohibit debugger statements",
-    "description" : "Prohibits debugger statements"
-  }, {
-    "patternId" : "null",
-    "title" : "Prohibit == null comparisons",
-    "description" : "Prohibits == null comparisons"
-  }, {
-    "patternId" : "evil",
-    "title" : "Prohibit eval",
-    "description" : "Prohibits the use of eval for security and performance reasons"
-  }, {
-    "patternId" : "expr",
-    "title" : "Prohibit unusually placed expressions",
-    "description" : "Prohibits use of expressions where normally you would expect to see assignments or function calls"
-  }, {
-    "patternId" : "funcscope",
-    "title" : "Prohibit variables used out of scope",
-    "description" : "Prohibits declaring variables inside of control structures while accessing them later from the outside"
-  }, {
-    "patternId" : "iterator",
-    "title" : "Prohibit __iterator__ property",
-    "description" : "Prohibits the use of __iterator__ property due to compatibility issues"
-  }, {
-    "patternId" : "loopfunc",
-    "title" : "Prohibit function def inside loops",
-    "description" : "Prohibits the definition of function inside the body of loops"
-  }, {
-    "patternId" : "multistr",
-    "title" : "Prohibit multi line strings",
-    "description" : "Prohibits the use of multi line strings due to whitespace error-proning"
-  }, {
-    "patternId" : "notypeof",
-    "title" : "Prohibit invalid typeof operators",
-    "description" : "Prohibits  invalid typeof operator values"
-  }, {
-    "patternId" : "shadow",
-    "title" : "Prohibit variable shadowing",
-    "description" : "Prohibits the declaration of a variable that had been already declared somewhere in the outer scope."
-  }, {
-    "patternId" : "proto",
-    "title" : "Prohibit __proto__ property",
-    "description" : "Prohibits the use of __proto__ property"
-  }, {
-    "patternId" : "sub",
-    "title" : "Prohibit [] notation",
-    "description" : "Prohibit [] notation when it can be expressed in dot notation"
-  }, {
-    "patternId" : "supernew",
-    "title" : "Prohibit new function",
-    "description" : "Prohibits weird constructions like `new function () { ... }` and `new Object;"
-  } ]
+  "patterns":[
+    {
+      "patternId":"rulesets-cleancode.xml-BooleanArgumentFlag",
+      "title":"Avoid boolean flag",
+      "description":""
+    },
+    {
+      "patternId":"rulesets-cleancode.xml-ElseExpression",
+      "title":"Avoid else expressions",
+      "description":"Use return statements instead of else expression"
+    },
+    {
+      "patternId":"rulesets-cleancode.xml-StaticAccess",
+      "title":"Avoid static access",
+      "description":"Static access leads to hard to test code"
+    },
+    {
+      "patternId":"rulesets-codesize.xml-CyclomaticComplexity",
+      "title":"Cyclomatic complexity",
+      "description":"This pattern reports methods with high cyclomatic complexity",
+      "parameters":[
+        {
+          "name":"reportLevel",
+          "description":"The Cyclomatic Complexity reporting threshold"
+        },
+        {
+          "name":"showClassesComplexity",
+          "description":"Indicate if class average violation should be included"
+        },
+        {
+          "name":"showMethodsComplexity",
+          "description":"Indicate if method average violation should be included"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-NPathComplexity",
+      "title":"NPath complexity",
+      "description":"This pattern reports methods with a large number of possible paths",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Reporting threshold"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-ExcessiveMethodLength",
+      "title":"Excessive method length",
+      "description":"This pattern reports excessively long methods.",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Reporting threshold for the number of lines in a method"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-ExcessiveClassLength",
+      "title":"Excessive class length",
+      "description":"This pattern reports excessively long classes.",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Reporting threshold for the number of lines in a class"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-ExcessiveParameterList",
+      "title":"Excessive parameters",
+      "description":"This pattern reports methods with a high number of parameters.",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Reporting threshold for the number of arguments in a method"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-ExcessivePublicCount",
+      "title":"Excessive public attributes",
+      "description":"This pattern reports classes with a high number of public methods and attributes.",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Reporting threshold for the number of public methods and attributes in a class"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-TooManyFields",
+      "title":"Excessive fields",
+      "description":"This pattern reports classes with a high number of fields.",
+      "parameters":[
+        {
+          "name":"maxfields",
+          "description":"Reporting threshold for the number of fields in a class"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-TooManyMethods",
+      "title":"Excessive methods",
+      "description":"This pattern reports classes with a high number of methods.",
+      "parameters":[
+        {
+          "name":"maxmethods",
+          "description":"Reporting threshold for the number of methods in a class"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-codesize.xml-ExcessiveClassComplexity",
+      "title":"Weighted method count",
+      "description":"This pattern reports classes with a high weighted method count.",
+      "parameters":[
+        {
+          "name":"maximum",
+          "description":"The maximum WMC tolerable for a class"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-controversial.xml-Superglobals",
+      "title":"Encapsulate Superglobals",
+      "description":"Prohibit direct access to superglobal variables"
+    },
+    {
+      "patternId":"rulesets-controversial.xml-CamelCaseClassName",
+      "title":"Enforce CamelCase in classes",
+      "description":"Requires all class names to use the CamelCase style"
+    },
+    {
+      "patternId":"rulesets-controversial.xml-CamelCasePropertyName",
+      "title":"Enforce CamelCase in properties",
+      "description":"Requires all property names to use the CamelCase style"
+    },
+    {
+      "patternId":"rulesets-controversial.xml-CamelCaseMethodName",
+      "title":"Enforce CamelCase in methods",
+      "description":"Requires all method names to use the CamelCase style"
+    },
+    {
+      "patternId":"rulesets-controversial.xml-CamelCaseParameterName",
+      "title":"Enforce CamelCase in parameters",
+      "description":"Requires all parameter names to use the CamelCase style"
+    },
+    {
+      "patternId":"rulesets-controversial.xml-CamelCaseVariableName",
+      "title":"Enforce CamelCase in variables",
+      "description":"Requires all variable names to use the CamelCase style"
+    },
+    {
+      "patternId":"rulesets-design.xml-ExitExpression",
+      "title":"Prohibit exit-expression",
+      "description":"Prohibit the use of exit-expressions within regular code, it is not testable"
+    },
+    {
+      "patternId":"rulesets-design.xml-EvalExpression",
+      "title":"Prohibit eval expression",
+      "description":"Prohibit the use of eval, it is untestable, a security risk and bad practice"
+    },
+    {
+      "patternId":"rulesets-design.xml-GotoStatement",
+      "title":"Prohibit goto",
+      "description":"Prohibit the use of goto, it makes the code harder to read nearly impossible to understand"
+    },
+    {
+      "patternId":"rulesets-design.xml-NumberOfChildren",
+      "title":"Excessive class children number",
+      "description":"Avoid classes with too many children",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Maximum number of acceptable child classes"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-design.xml-DepthOfInheritance",
+      "title":"Excessive class parents",
+      "description":"Avoid classes with too many parents parents",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Maximum number of acceptable parent classes"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-design.xml-CouplingBetweenObjects",
+      "title":"Excessive class dependencies",
+      "description":"Avoid classes with too many dependencies",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Maximum number of acceptable dependencies"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-unusedcode.xml-UnusedPrivateField",
+      "title":"Prohibit unused private variables",
+      "description":"Prohibit the definition or assignment of unused private variables"
+    },
+    {
+      "patternId":"rulesets-unusedcode.xml-UnusedLocalVariable",
+      "title":"Prohibit unused variables",
+      "description":"Prohibit the definition or assignment of unused local variables"
+    },
+    {
+      "patternId":"rulesets-unusedcode.xml-UnusedPrivateMethod",
+      "title":"Prohibit unused private methods",
+      "description":"Prohibit the definition or assignment of unused private methods"
+    },
+    {
+      "patternId":"rulesets-unusedcode.xml-UnusedFormalParameter",
+      "title":"Prohibit unused arguments",
+      "description":"Prohibit the definition of unused parameters on methods or constructors"
+    },
+    {
+      "patternId":"rulesets-naming.xml-ShortVariable",
+      "title":"Prohibit short variable names",
+      "description":"Detects when a field, local, or parameter has a very short name.",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Minimum length for a variable"
+        },
+        {
+          "name":"exceptions",
+          "description":"Comma-separated list of exceptions"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-naming.xml-LongVariable",
+      "title":"Prohibit long variable names",
+      "description":"Detects when a field, local, or parameter has a very long name.",
+      "parameters":[
+        {
+          "name":"maximum",
+          "description":"Maximum length for a variable"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-naming.xml-ShortMethodName",
+      "title":"Prohibit short method names",
+      "description":"Detects when very short method names are used.",
+      "parameters":[
+        {
+          "name":"minimum",
+          "description":"Minimum length for a method"
+        },
+        {
+          "name":"exceptions",
+          "description":"Comma-separated list of exceptions"
+        }
+      ]
+    },
+    {
+      "patternId":"rulesets-naming.xml-ConstructorWithNameAsEnclosingClass",
+      "title":"Prohibit constructor with class name",
+      "description":"In PHP 5, a constructor should not have the same name as the enclosing class."
+    },
+    {
+      "patternId":"rulesets-naming.xml-ConstantNamingConventions",
+      "title":"Enforce uppercase constants",
+      "description":"Constant names should always be defined in uppercase."
+    },
+    {
+      "patternId":"rulesets-naming.xml-BooleanGetMethodName",
+      "title":"Enforce boolean naming convention",
+      "description":"Boolean methods should be called 'isX()' or 'hasX()'"
+    }
+  ]
 }

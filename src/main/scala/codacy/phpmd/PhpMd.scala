@@ -18,14 +18,16 @@ object PhpMd extends Tool{
 
         val configPath = configFile.toAbsolutePath().toString
         val cmd = s"phpmd $path xml $configPath".split(" ").toList
-        Try(cmd.lineStream_!).map{ case output => outputParsed(output.mkString) }
+        Try(cmd.lineStream_!).map{ case output =>
+          outputParsed(output.mkString)
+        }
       }
     }
   }
 
   private[this] def xmlLocation(ruleName:String,ruleSet:String) = {
     val rsPart = ruleSet.dropRight("Rules".length).replaceAll(" ","").toLowerCase()
-    s"rulesets/$rsPart.xml/$ruleName"
+    s"rulesets-$rsPart.xml-$ruleName"
   }
 
   private[this] def patternIdByRuleNameAndRuleSet(ruleName: String, ruleSet:String)(implicit spec: Spec):Option[PatternId] = {
@@ -66,8 +68,9 @@ object PhpMd extends Tool{
     val suppliedParams = patternDef.parameters.getOrElse(Set.empty)
     val allParams = defaultParams.filterNot{ case param => suppliedParams.map(_.name).contains(param.name) } ++ suppliedParams
     val properties = allParams.toSeq.map(toXmlProperties)
+    val xmlLocation = patternDef.patternId.value.replaceAll("-","/")
 
-    <rule ref={patternDef.patternId.value}><properties>{properties}</properties></rule>
+    <rule ref={xmlLocation}><properties>{properties}</properties></rule>
   }
 
   private[this] def defaultParametersFor(patternDef: PatternDef)(implicit spec:Spec):Set[ParameterDef] = {
