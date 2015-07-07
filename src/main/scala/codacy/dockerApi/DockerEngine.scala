@@ -7,8 +7,18 @@ abstract class DockerEngine(Tool:Tool) extends DockerEnvironment{
 
   def main(args: Array[String]): Unit = {
     spec.flatMap{ implicit spec =>
-      config.flatMap{ case config =>
-        Tool(sourcePath,config.patterns)
+      config.flatMap{ case fullConfig =>
+        fullConfig.tools.collectFirst{ case config if config.name == spec.name =>
+
+          Tool(
+            path = sourcePath,
+            conf = config.patterns,
+            files = fullConfig.files.map(_.map{ case path =>
+              sourcePath.resolve(path.value)
+            })
+          )
+
+        }.getOrElse(Failure(new Throwable(s"no config for ${spec.name} found")))
       }
     } match{
       case Success(results) =>

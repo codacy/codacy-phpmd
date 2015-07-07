@@ -11,13 +11,20 @@ import scala.util.Try
 
 object PhpMd extends Tool{
 
-  def apply(path: Path, patternDefs: Seq[PatternDef])(implicit spec: Spec): Try[Iterable[Result]] = {
+  def apply(path: Path, patternDefs: Seq[PatternDef],files:Option[Set[Path]])(implicit spec: Spec): Try[Iterable[Result]] = {
     Try(configFromPatterns(patternDefs)).flatMap{ case config =>
 
       fileForConfig(config).flatMap{ case configFile =>
 
+        val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(path.toString)
+
         val configPath = configFile.toAbsolutePath().toString
-        val cmd = s"phpmd $path xml $configPath".split(" ").toList
+        val cmd = s"phpmd $filesPaths xml $configPath".split(" ").toList
+        println(
+          s"""will run command:
+             |${cmd.mkString(" ")}
+           """.stripMargin)
+
         Try(cmd.lineStream_!).map{ case output =>
           outputParsed(output.mkString)
         }
