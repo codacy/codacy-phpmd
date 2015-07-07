@@ -23,8 +23,7 @@ abstract class DockerEngine(Tool:Tool) extends DockerEnvironment{
     } match{
       case Success(results) =>
         val all = results.map{ case result =>
-          val pathCorrected = result.copy(filename = pathStripped(result.filename))
-          println(Json.stringify(Json.toJson(pathCorrected)))
+          println(Json.stringify(Json.toJson(result)))
         }.toList
       //println(s"found ${all.size} issues")
       case Failure(error) =>

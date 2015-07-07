@@ -36,7 +36,4 @@ trait DockerEnvironment{
   private[this] lazy val srcPathRaw = "/src"
   lazy val sourcePath: Path = Paths.get(srcPathRaw)
 
-  def pathStripped(sourcePath:SourcePath) = Option(sourcePath.value).collect{
-    case p if p.startsWith(srcPathRaw) => SourcePath(p.drop(srcPathRaw.length))
-  }.getOrElse(sourcePath)
 }
