@@ -1,5 +1,7 @@
 import com.typesafe.sbt.packager.docker._
 
+resolvers += "Typesafe Repo" at "http://repo.typesafe.com/typesafe/releases/"
+
 name := """codacy-engine-phpmd"""
 
 version := "1.0-SNAPSHOT"
