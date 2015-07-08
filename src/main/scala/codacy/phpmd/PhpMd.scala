@@ -7,30 +7,30 @@ import codacy.dockerApi._
 import play.api.libs.json.Json
 import scala.xml._
 import scala.sys.process._
-import scala.util.Try
+import scala.util.{Success, Try}
 
 object PhpMd extends Tool{
+  
+  def apply(path: Path, patternDefs: Option[Seq[PatternDef]],files:Option[Set[Path]])(implicit spec: Spec): Try[Iterable[Result]] = {
+    patternDefs.map{ case patterns => Try(configFromPatterns(patterns)).flatMap(fileForConfig).
+    map(Option.apply) }.getOrElse(Success(Option.empty[Path])).flatMap{ case maybeConfigFile =>
+      val configPath = maybeConfigFile.map(_.toAbsolutePath.toString).getOrElse(defaultRulesPath)
 
-  def apply(path: Path, patternDefs: Seq[PatternDef],files:Option[Set[Path]])(implicit spec: Spec): Try[Iterable[Result]] = {
-    Try(configFromPatterns(patternDefs)).flatMap{ case config =>
+      val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(path.toString)
 
-      fileForConfig(config).flatMap{ case configFile =>
+      val cmd = Seq("phpmd",filesPaths,"xml",configPath)
 
-        val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(path.toString)
-
-        val configPath = configFile.toAbsolutePath().toString
-        val cmd = s"phpmd $filesPaths xml $configPath".split(" ").toList
-        println(
-          s"""will run command:
-             |${cmd.mkString(" ")}
-           """.stripMargin)
-
-        Try(cmd.lineStream_!).map{ case output =>
-          outputParsed(output.mkString)
-        }
+      Try(cmd.lineStream_!).map{ case output =>
+        outputParsed(output.mkString)
       }
+
     }
   }
+
+  private[this] lazy val defaultRulesPath = Seq("codesize","cleancode","controversial","design","unusedcode","naming").
+    map{ case category =>
+    s"rulesets/$category.xml"
+  }.mkString(",")
 
   private[this] def xmlLocation(ruleName:String,ruleSet:String) = {
     val rsPart = ruleSet.dropRight("Rules".length).replaceAll(" ","").toLowerCase()

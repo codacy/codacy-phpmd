@@ -11,13 +11,14 @@ trait DockerEnvironment{
 
   private[this] lazy val configFilePath = sourcePath.resolve(".codacy.json")
 
-  def config(implicit spec: Spec): Try[FullConfig] = Try(Files.readAllBytes(configFilePath)).
-    map( Json.parse ).flatMap(
+  def config(implicit spec: Spec): Try[Option[FullConfig]] = Try(Files.readAllBytes(configFilePath)).transform(
+    raw => Try(Json.parse(raw)).flatMap(
       _.validate[FullConfig].fold(
         error => Failure(new Throwable(Json.stringify(JsError.toFlatJson(error)))),
-        Success.apply
-      )
-    )
+        conf => Success(Option(conf))
+      )),
+    _ => Success(Option.empty[FullConfig])
+  )
 
   lazy val spec: Try[Spec] = {
     val source = Try(Source.fromURL(getClass.getResource("/docs/patterns.json")))
@@ -35,5 +36,4 @@ trait DockerEnvironment{
 
   private[this] lazy val srcPathRaw = "/src"
   lazy val sourcePath: Path = Paths.get(srcPathRaw)
-
 }
