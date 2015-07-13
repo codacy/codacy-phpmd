@@ -46,23 +46,26 @@ object PhpMd extends Tool{
   private[this] def outputParsed(output:String)(implicit spec: Spec): Set[Result] = {
     Try(XML.loadString(output)).map{ case elem =>
       (elem \ "file").flatMap{ case file =>
-        (file \ "violation").flatMap{ case violation =>
-          Try{
+        Seq((file \@ "name")).collect{ case fname if fname.nonEmpty => SourcePath(fname) }.
+        flatMap{ case filename =>
+          (file \ "violation").flatMap{ case violation =>
             patternIdByRuleNameAndRuleSet(
               ruleName = violation \@ "rule",
               ruleSet = violation \@ "ruleset"
-            ).map{ case patternId =>
-              Result(
-                filename = SourcePath((file \@ "name")),
-                message = ResultMessage(violation.text.trim),
-                patternId = patternId,
-                line = ResultLine((violation \@ "beginline").toInt)
-              )
+            ).flatMap { case patternId =>
+              Try(
+                Result(
+                  filename = filename,
+                  message = ResultMessage(violation.text.trim),
+                  patternId = patternId,
+                  line = ResultLine((violation \@ "beginline").toInt)
+                )
+              ).toOption
             }
-          }.toOption.flatten[Result]
+          }
         }
-      }
-    }.map(_.toSet).getOrElse(Set.empty[Result])
+      }.toSet
+    }.getOrElse(Set.empty[Result])
   }
 
   private[this] def toXmlProperties(parameterDef:ParameterDef): Elem = {
