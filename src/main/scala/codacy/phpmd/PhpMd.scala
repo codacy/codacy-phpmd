@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.{StandardOpenOption, Files, Path}
 
 import codacy.dockerApi._
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Json}
 import scala.xml._
 import scala.sys.process._
 import scala.util.{Success, Try}
@@ -69,7 +69,11 @@ object PhpMd extends Tool{
   }
 
   private[this] def toXmlProperties(parameterDef:ParameterDef): Elem = {
-    <property name={ parameterDef.name.value } value={ Json.stringify(parameterDef.value) } />
+    val value = parameterDef.value match{
+      case JsString(value) => value
+      case other => Json.stringify(other)
+    }
+    <property name={ parameterDef.name.value } value={ value } />
   }
 
   private[this] def toXmlRule(patternDef: PatternDef)(implicit spec:Spec): Elem = {
