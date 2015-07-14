@@ -32,5 +32,5 @@ trait DockerEnvironment{
 
   private[this] lazy val configFilePath = sourcePath.resolve(".codacy.json")
 
-  private[this] lazy val sourcePath = Paths.get("/src")
+  lazy val sourcePath = Paths.get("/src")
 }
