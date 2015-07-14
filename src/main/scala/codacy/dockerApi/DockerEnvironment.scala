@@ -1,39 +1,36 @@
 package codacy.dockerApi
 
 import java.nio.file.{Files, Path, Paths}
-
+import play.api.data.validation.ValidationError
 import play.api.libs.json._
-
-import scala.io.Source
-import scala.util.{Properties, Failure, Success, Try}
+import scala.util.{Failure, Success, Try}
 
 trait DockerEnvironment{
-
-  private[this] lazy val configFilePath = sourcePath.resolve(".codacy.json")
 
   def config(implicit spec: Spec): Try[Option[FullConfig]] = Try(Files.readAllBytes(configFilePath)).transform(
     raw => Try(Json.parse(raw)).flatMap(
       _.validate[FullConfig].fold(
-        error => Failure(new Throwable(Json.stringify(JsError.toFlatJson(error)))),
+        asFailure,
         conf => Success(Option(conf))
       )),
     _ => Success(Option.empty[FullConfig])
   )
 
   lazy val spec: Try[Spec] = {
-    val source = Try(Source.fromURL(getClass.getResource("/docs/patterns.json")))
-    val result = source.flatMap{ case source =>
-      val content = source.getLines().mkString(Properties.lineSeparator)
-      Try(Json.parse(content)).flatMap(_.validate[Spec].fold(
-        error => Failure(new Throwable(Json.stringify(JsError.toFlatJson(error)))),
+    Try(
+      Files.readAllBytes(Paths.get(getClass.getResource("/docs/patterns.json").toURI))
+    ).flatMap{ case bytes =>
+      Try( Json.parse(bytes) ).flatMap(_.validate[Spec].fold(
+        asFailure,
         Success.apply
       ))
     }
-
-    source.map(_.close())
-    result
   }
 
-  private[this] lazy val srcPathRaw = "/src"
-  lazy val sourcePath: Path = Paths.get(srcPathRaw)
+  private[this] def asFailure(error: Seq[(JsPath, Seq[ValidationError])]) =
+    Failure(new Throwable(Json.stringify(JsError.toFlatJson(error))))
+
+  private[this] lazy val configFilePath = sourcePath.resolve(".codacy.json")
+
+  private[this] lazy val sourcePath = Paths.get("/src")
 }
