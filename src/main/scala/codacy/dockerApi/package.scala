@@ -6,39 +6,44 @@ import scala.util.Try
 
 package dockerApi{
 
-  trait Tool{ def apply(path: Path,conf: Option[Seq[PatternDef]], files:Option[Set[Path]])(implicit spec: Spec): Try[Iterable[Result]] }
+abstract class Formats[W <: AnyVal{ val value:B },B](apply_ : (B => W)) extends (B => W){ self =>
 
-  trait Fmts[W,B] extends (B => W){ self =>
+  implicit def writes(implicit writes: Writes[B]):Writes[W] = Writes(
+    (_:W).value match{ case value:B@unchecked => writes.writes(value) }
+  )
 
-    implicit def writes(implicit writes: Writes[B], toBase: W => B):Writes[W] = Writes( (w:W) => writes.writes(toBase(w)) )
-    implicit def reads(implicit reads: Reads[B]):Reads[W] = reads.map( self.apply )
-  }
+  implicit def reads(implicit reads: Reads[B]):Reads[W] = reads.map( self.apply )
 
-  class PatternId     ( val value:String) extends AnyVal{ override def toString = value.toString }
-  class SourcePath    ( val value:String) extends AnyVal{ override def toString = value.toString }
-  class ResultMessage ( val value:String) extends AnyVal{ override def toString = value.toString }
-  class ResultLine    ( val value:Int   ) extends AnyVal{ override def toString = value.toString }
-  class ToolName      ( val value:String) extends AnyVal{ override def toString = value.toString }
-  class ParameterName ( val value:String) extends AnyVal{ override def toString = value.toString }
+  override def apply(v1: B): W = apply_(v1)
+}
 
-  object PatternId     extends Fmts[PatternId    , String]{ def apply(v:String) = new PatternId(v)     }
-  object SourcePath    extends Fmts[SourcePath   , String]{ def apply(v:String) = new SourcePath(v)    }
-  object ResultMessage extends Fmts[ResultMessage, String]{ def apply(v:String) = new ResultMessage(v) }
-  object ResultLine    extends Fmts[ResultLine   , Int   ]{ def apply(v:Int   ) = new ResultLine(v)    }
-  object ToolName      extends Fmts[ToolName     , String]{ def apply(v:String) = new ToolName(v)      }
-  object ParameterName extends Fmts[ParameterName, String]{ def apply(v:String) = new ParameterName(v) }
+trait Tool{ def apply(path: Path,conf: Option[Seq[PatternDef]], files:Option[Set[Path]])(implicit spec: Spec): Try[Iterable[Result]] }
 
-  case class ParameterDef(name:ParameterName,value:JsValue)
-  case class PatternDef(patternId: PatternId, parameters:Option[Set[ParameterDef]])
-  case class ToolConfig(name:ToolName, patterns:Seq[PatternDef])
-  private[dockerApi] case class FullConfig(tools:Set[ToolConfig],files:Option[Set[SourcePath]])
+final class PatternId     (val value:String) extends AnyVal{ override def toString = value.toString }
+final class SourcePath    (val value:String) extends AnyVal{ override def toString = value.toString }
+final class ResultMessage (val value:String) extends AnyVal{ override def toString = value.toString }
+final class ResultLine    (val value:Int   ) extends AnyVal{ override def toString = value.toString }
+final class ToolName      (val value:String) extends AnyVal{ override def toString = value.toString }
+final class ParameterName (val value:String) extends AnyVal{ override def toString = value.toString }
 
-  //there are other fields like name and description but i don't care about them inside the tool
-  case class ParameterSpec(name:ParameterName, default:JsValue)
-  case class PatternSpec(patternId: PatternId, parameters:Option[Set[ParameterSpec]])
-  case class Spec(name:ToolName,patterns:Set[PatternSpec])
+object PatternId     extends Formats[PatternId    , String]( new PatternId(_)     )
+object SourcePath    extends Formats[SourcePath   , String]( new SourcePath(_)    )
+object ResultMessage extends Formats[ResultMessage, String]( new ResultMessage(_) )
+object ResultLine    extends Formats[ResultLine   , Int   ]( new ResultLine(_)    )
+object ToolName      extends Formats[ToolName     , String]( new ToolName(_)      )
+object ParameterName extends Formats[ParameterName, String]( new ParameterName(_) )
 
-  case class Result(filename:SourcePath,message:ResultMessage,patternId:PatternId,line: ResultLine)
+case class ParameterDef(name:ParameterName,value:JsValue)
+case class PatternDef(patternId: PatternId, parameters:Option[Set[ParameterDef]])
+case class ToolConfig(name:ToolName, patterns:Seq[PatternDef])
+private[dockerApi] case class FullConfig(tools:Set[ToolConfig],files:Option[Set[SourcePath]])
+
+//there are other fields like name and description but i don't care about them inside the tool
+case class ParameterSpec(name:ParameterName, default:JsValue)
+case class PatternSpec(patternId: PatternId, parameters:Option[Set[ParameterSpec]])
+case class Spec(name:ToolName,patterns:Set[PatternSpec])
+
+case class Result(filename:SourcePath,message:ResultMessage,patternId:PatternId,line: ResultLine)
 }
 
 package object dockerApi {
