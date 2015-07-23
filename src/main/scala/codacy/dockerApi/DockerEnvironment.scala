@@ -1,11 +1,13 @@
 package codacy.dockerApi
 
-import java.nio.file.{Files, Path, Paths}
+import java.nio.file.{Files, Paths}
+
 import play.api.data.validation.ValidationError
 import play.api.libs.json._
+
 import scala.util.{Failure, Success, Try}
 
-trait DockerEnvironment{
+trait DockerEnvironment {
 
   def config(implicit spec: Spec): Try[Option[FullConfig]] = Try(Files.readAllBytes(configFilePath)).transform(
     raw => Try(Json.parse(raw)).flatMap(
@@ -18,9 +20,9 @@ trait DockerEnvironment{
 
   lazy val spec: Try[Spec] = {
     Try(
-      Files.readAllBytes(Paths.get(getClass.getResource("/docs/patterns.json").toURI))
-    ).flatMap{ case bytes =>
-      Try( Json.parse(bytes) ).flatMap(_.validate[Spec].fold(
+      Files.readAllBytes(Paths.get("/docs/patterns.json"))
+    ).flatMap { case bytes =>
+      Try(Json.parse(bytes)).flatMap(_.validate[Spec].fold(
         asFailure,
         Success.apply
       ))
