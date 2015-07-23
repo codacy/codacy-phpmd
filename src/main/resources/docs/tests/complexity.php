@@ -1,34 +1,34 @@
 <?php
-//#Patterns: PHPMD_CodeSize_CyclomaticComplexity: { "reportLevel": "2" }
-//#Patterns: PHPMD_CodeSize_NPathComplexity: { "minimum": "4" }
-//#Patterns: PHPMD_CodeSize_ExcessiveMethodLength: { "minimum": "11" }
-//#Patterns: PHPMD_CodeSize_ExcessiveClassLength: { "minimum": "2" }
-//#Patterns: PHPMD_CodeSize_ExcessiveParameterList: { "minimum": "2" }
-//#Patterns: PHPMD_CodeSize_ExcessivePublicCount: { "minimum": "2" }
-//#Patterns: PHPMD_CodeSize_TooManyFields: { "maxfields": "2" }
-//#Patterns: PHPMD_CodeSize_TooManyMethods: { "maxmethods": "2" }
-//#Patterns: PHPMD_CodeSize_ExcessiveClassComplexity: { "maximum": "2" }
-//#Patterns: PHPMD_CleanCode_ElseExpression
+//#Patterns: rulesets-codesize.xml-CyclomaticComplexity: { "reportLevel": "2" }
+//#Patterns: rulesets-codesize.xml-NPathComplexity: { "minimum": "4" }
+//#Patterns: rulesets-codesize.xml-ExcessiveMethodLength: { "minimum": "11" }
+//#Patterns: rulesets-codesize.xml-ExcessiveClassLength: { "minimum": "2" }
+//#Patterns: rulesets-codesize.xml-ExcessiveParameterList: { "minimum": "2" }
+//#Patterns: rulesets-codesize.xml-ExcessivePublicCount: { "minimum": "2" }
+//#Patterns: rulesets-codesize.xml-TooManyFields: { "maxfields": "2" }
+//#Patterns: rulesets-codesize.xml-TooManyMethods: { "maxmethods": "2" }
+//#Patterns: rulesets-codesize.xml-ExcessiveClassComplexity: { "maximum": "2" }
+//#Patterns: rulesets-cleancode.xml-ElseExpression
 
 
 
-//#Warn: PHPMD_CodeSize_ExcessiveClassLength
-//#Warn: PHPMD_CodeSize_ExcessiveClassComplexity
-//#Warn: PHPMD_CodeSize_ExcessivePublicCount
-//#Warn: PHPMD_CodeSize_TooManyFields
-//#Warn: PHPMD_CodeSize_TooManyMethods
+//#Warn: rulesets-codesize.xml-ExcessiveClassLength
+//#Warn: rulesets-codesize.xml-ExcessiveClassComplexity
+//#Warn: rulesets-codesize.xml-ExcessivePublicCount
+//#Warn: rulesets-codesize.xml-TooManyFields
+//#Warn: rulesets-codesize.xml-TooManyMethods
 class Token
 {
-    //#Warn: PHPMD_CodeSize_ExcessiveParameterList
+    //#Warn: rulesets-codesize.xml-ExcessiveParameterList
     public function __construct(TokenType $type, $value)
     {
         $this->type = $type;
         $this->value = $value;
     }
 
-    //#Warn: PHPMD_CodeSize_CyclomaticComplexity
-    //#Warn: PHPMD_CodeSize_ExcessiveMethodLength
-    //#Warn: PHPMD_CodeSize_NPathComplexity
+    //#Warn: rulesets-codesize.xml-CyclomaticComplexity
+    //#Warn: rulesets-codesize.xml-ExcessiveMethodLength
+    //#Warn: rulesets-codesize.xml-NPathComplexity
     public static function createLiteral($value)
     {
         if (is_integer($value) || is_float($value)) {
@@ -525,13 +525,13 @@ class Token
             return new Token(TokenType::BOOLEAN_LITERAL(), $value);
         } elseif (is_null($value)) {
             return new Token(TokenType::NULL_LITERAL(), null);
-        //#Info: PHPMD_CleanCode_ElseExpression
+        //#Info: rulesets-cleancode.xml-ElseExpression
         } else {
             return new Token(TokenType::STRING_LITERAL(), strval($value));
         }
     }
 
-    //#Warn: PHPMD_CodeSize_CyclomaticComplexity
+    //#Warn: rulesets-codesize.xml-CyclomaticComplexity
     public function type()
     {
         if (true) {

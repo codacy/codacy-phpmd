@@ -1,14 +1,14 @@
 <?php
-//#Patterns: PHPMD_DesignRules_ExitExpression, PHPMD_DesignRules_EvalExpression, PHPMD_DesignRules_GotoStatement
-//#Patterns: PHPMD_DesignRules_NumberOfChildren, PHPMD_DesignRules_DepthOfInheritance, PHPMD_DesignRules_CouplingBetweenObjects
+//#Patterns: rulesets-design.xml-ExitExpression, rulesets-design.xml-EvalExpression, rulesets-design.xml-GotoStatement
+//#Patterns: rulesets-design.xml-NumberOfChildren, rulesets-design.xml-DepthOfInheritance, rulesets-design.xml-CouplingBetweenObjects
 
 
 class Foo {
     public function bar($param)  {
         if ($param === 42) {
-            //#Warn: PHPMD_DesignRules_EvalExpression
+            //#Warn: rulesets-design.xml-EvalExpression
             eval('$param = 23;');
-            //#Warn: PHPMD_DesignRules_ExitExpression
+            //#Warn: rulesets-design.xml-ExitExpression
             exit(23);
         }
     }
@@ -18,17 +18,17 @@ class Bar extends Foo {
     public function bar($param)  {
         A:
         if ($param === 42) {
-            //#Warn: PHPMD_DesignRules_GotoStatement
+            //#Warn: rulesets-design.xml-GotoStatement
             goto X;
         }
         Y:
         if (time() % 42 === 23) {
-            //#Warn: PHPMD_DesignRules_GotoStatement
+            //#Warn: rulesets-design.xml-GotoStatement
             goto Z;
         }
         X:
         if (time() % 23 === 42) {
-            //#Warn: PHPMD_DesignRules_GotoStatement
+            //#Warn: rulesets-design.xml-GotoStatement
             goto Y;
         }
         Z:
@@ -39,7 +39,7 @@ class Bar extends Foo {
 class Baz extends Bar {
 }
 
-//#Warn: PHPMD_DesignRules_NumberOfChildren
+//#Warn: rulesets-design.xml-NumberOfChildren
 class Qux extends Baz {
 }
 
@@ -49,7 +49,7 @@ class Quux extends Qux {
 class Quuux extends Quux {
 }
 
-//#Warn: PHPMD_DesignRules_DepthOfInheritance
+//#Warn: rulesets-design.xml-DepthOfInheritance
 class Quuuux extends Quuux {
 }
 
@@ -98,7 +98,7 @@ class FooBar14 extends Qux {
 class FooBar15 extends Qux {
 }
 
-//--#Warn: PHPMD_DesignRules_CouplingBetweenObjects
+//--#Warn: rulesets-design.xml-CouplingBetweenObjects
 class FooBar {
     private $x = new Foo();
     private $y = new Bar();

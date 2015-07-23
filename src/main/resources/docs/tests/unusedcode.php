@@ -1,18 +1,18 @@
 <?php
-//#Patterns: PHPMD_UnusedCodeRules_UnusedPrivateField, PHPMD_UnusedCodeRules_UnusedLocalVariable
-//#Patterns: PHPMD_UnusedCodeRules_UnusedPrivateMethod, PHPMD_UnusedCodeRules_UnusedFormalParameter
+//#Patterns: rulesets-unusedcode.xml-UnusedPrivateField, rulesets-unusedcode.xml-UnusedLocalVariable
+//#Patterns: rulesets-unusedcode.xml-UnusedPrivateMethod, rulesets-unusedcode.xml-UnusedFormalParameter
 
 class Foo {
-    //#Warn: PHPMD_UnusedCodeRules_UnusedPrivateField
+    //#Warn: rulesets-unusedcode.xml-UnusedPrivateField
     private $unusedPvt = null;
 
-    //#Warn: PHPMD_UnusedCodeRules_UnusedPrivateMethod
+    //#Warn: rulesets-unusedcode.xml-UnusedPrivateMethod
     private function unusedMethod()  {
-        //#Warn: PHPMD_UnusedCodeRules_UnusedLocalVariable
+        //#Warn: rulesets-unusedcode.xml-UnusedLocalVariable
         $unusedLocal = null;
     }
 
-    //#Warn: PHPMD_UnusedCodeRules_UnusedFormalParameter
+    //#Warn: rulesets-unusedcode.xml-UnusedFormalParameter
     public function baz($unusedArg)  {}
 }
 

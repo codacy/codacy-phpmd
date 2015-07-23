@@ -1,37 +1,37 @@
 <?php
-//#Patterns: PHPMD_NamingRules_ShortVariable, PHPMD_NamingRules_LongVariable
-//#Patterns: PHPMD_NamingRules_ShortMethodName, PHPMD_NamingRules_ConstructorWithNameAsEnclosingClass
-//#Patterns: PHPMD_NamingRules_ConstantNamingConventions, PHPMD_NamingRules_BooleanGetMethodName
+//#Patterns: rulesets-naming.xml-ShortVariable, rulesets-naming.xml-LongVariable
+//#Patterns: rulesets-naming.xml-ShortMethodName, rulesets-naming.xml-ConstructorWithNameAsEnclosingClass
+//#Patterns: rulesets-naming.xml-ConstantNamingConventions, rulesets-naming.xml-BooleanGetMethodName
 
 
 class Something
 {
-    //#Info: PHPMD_NamingRules_ShortVariable
+    //#Info: rulesets-naming.xml-ShortVariable
     private $q = 15;
-    //#Info: PHPMD_NamingRules_LongVariable
+    //#Info: rulesets-naming.xml-LongVariable
     protected $reallyLongIntNameLongLong = -3;
 
-    //#Info: PHPMD_NamingRules_ConstantNamingConventions
+    //#Info: rulesets-naming.xml-ConstantNamingConventions
     const myTest = "";
 
-    //#Info: PHPMD_NamingRules_ShortVariable
+    //#Info: rulesets-naming.xml-ShortVariable
     public static function main(array $as)
     {
-        //#Info: PHPMD_NamingRules_ShortVariable
+        //#Info: rulesets-naming.xml-ShortVariable
         $r = 20 + $this->q;
         for (int $i = 0; $i < 10; $i++) {
             $r += $this->q;
         }
     }
 
-    //#Info: PHPMD_NamingRules_ShortMethodName
+    //#Info: rulesets-naming.xml-ShortMethodName
     public function a( $index ) {
     }
 
-    //#Info: PHPMD_NamingRules_ConstructorWithNameAsEnclosingClass
+    //#Info: rulesets-naming.xml-ConstructorWithNameAsEnclosingClass
     public function Something() {}
 
     /** * @return boolean */
-    //#Info: PHPMD_NamingRules_BooleanGetMethodName
+    //#Info: rulesets-naming.xml-BooleanGetMethodName
     public function getFoo() {} // bad
 }

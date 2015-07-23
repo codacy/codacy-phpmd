@@ -1,16 +1,16 @@
 <?php
-//#Patterns: PHPMD_CleanCode_ElseExpression, PHPMD_CleanCode_StaticAccess
+//#Patterns: rulesets-cleancode.xml-ElseExpression, rulesets-cleancode.xml-StaticAccess
 
 class Foo
 {
     public function bar($flag)
     {
-        //#Info: PHPMD_CleanCode_StaticAccess
+        //#Info: rulesets-cleancode.xml-StaticAccess
         Bar::baz();
 
         if ($flag) {
             // one branch
-        //#Info: PHPMD_CleanCode_ElseExpression
+        //#Info: rulesets-cleancode.xml-ElseExpression
         } else {
             // another branch
         }

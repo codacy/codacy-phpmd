@@ -1,17 +1,17 @@
 <?php
-//#Patterns: PHPMD_Controversial_Superglobals, PHPMD_Controversial_CamelCaseClassName
-//#Patterns: PHPMD_Controversial_CamelCaseMethodName, PHPMD_Controversial_CamelCaseParameterName
+//#Patterns: rulesets-controversial.xml-Superglobals, rulesets-controversial.xml-CamelCaseClassName
+//#Patterns: rulesets-controversial.xml-CamelCaseMethodName, rulesets-controversial.xml-CamelCaseParameterName
 
 
-//#Info: PHPMD_Controversial_CamelCaseClassName
+//#Info: rulesets-controversial.xml-CamelCaseClassName
 class foo_foo
 {
 
     protected $my_property;
 
-    //#Info: PHPMD_Controversial_CamelCaseMethodName
-    //#Info: PHPMD_Controversial_CamelCaseParameterName
-    //#Info: PHPMD_Controversial_Superglobals
+    //#Info: rulesets-controversial.xml-CamelCaseMethodName
+    //#Info: rulesets-controversial.xml-CamelCaseParameterName
+    //#Info: rulesets-controversial.xml-Superglobals
     public function bar_bar($arg1, $arg2, $arg3, $arg4, $arg_things, $arg6, $arg7, $arg8, $arg12, $arg10, $arg11)
     {
         $some_name = $_POST['foo'];
