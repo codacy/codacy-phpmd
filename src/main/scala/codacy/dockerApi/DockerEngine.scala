@@ -6,6 +6,8 @@ import scala.util.{Failure, Success}
 
 abstract class DockerEngine(Tool: Tool) extends DockerEnvironment {
 
+  private lazy val pathPrefix = "/src/"
+
   def main(args: Array[String]): Unit = {
     spec.flatMap { implicit spec =>
       config.flatMap { case maybeConfig =>
@@ -24,7 +26,8 @@ abstract class DockerEngine(Tool: Tool) extends DockerEnvironment {
     } match {
       case Success(results) =>
         results.foreach { result =>
-          println(Json.stringify(Json.toJson(result)))
+          val relativeResult = result.copy(filename = SourcePath(result.filename.value.stripPrefix(pathPrefix)))
+          println(Json.stringify(Json.toJson(relativeResult)))
         }
 
       case Failure(error) =>
