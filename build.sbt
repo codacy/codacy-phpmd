@@ -26,13 +26,13 @@ val installAll =
      |export COMPOSER_HOME=/opt/composer &&
      |mkdir -p $$COMPOSER_HOME &&
      |apk update &&
-     |apk add bash curl php php-xml php-cli php-pdo php-curl php-json php-phar php-ctype php-openssl php-dom &&
+     |apk add bash curl git php php-xml php-cli php-pdo php-curl php-json php-phar php-ctype php-openssl php-dom &&
      |curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer &&
      |composer global require "sebastian/phpcpd=2.0.1" &&
      |composer global require "phpmd/phpmd=2.2.2" &&
      |chmod -R 777 /opt &&
      |ln -s /opt/composer/vendor/bin/phpmd /bin/phpmd
-     """.stripMargin.replaceAll(System.lineSeparator(), " ")
+   """.stripMargin.replaceAll(System.lineSeparator(), " ")
 
 mappings in Universal <++= (resourceDirectory in Compile) map { (resourceDir: File) =>
   val src = resourceDir / "docs"
@@ -48,7 +48,13 @@ daemonUser in Docker := "docker"
 
 dockerBaseImage := "frolvlad/alpine-oraclejdk8"
 
-dockerCommands := dockerCommands.value.take(3) ++
-  List(Cmd("RUN", installAll), Cmd("RUN", "mv /opt/docker/docs /docs")) ++
-  List(Cmd("RUN", "adduser -u 2004 -D docker")) ++
-  dockerCommands.value.drop(3)
+dockerCommands := dockerCommands.value.flatMap {
+  case cmd@Cmd("WORKDIR", _) => List(cmd,
+    Cmd("RUN", installAll)
+  )
+  case cmd@(Cmd("ADD", "opt /opt")) => List(cmd,
+    Cmd("RUN", "mv /opt/docker/docs /docs"),
+    Cmd("RUN", "adduser -u 2004 -D docker")
+  )
+  case other => List(other)
+}
