@@ -15,6 +15,10 @@ libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-xml" % "1.0.4" withSources()
 )
 
+lazy val root = project.in(file(".")).dependsOn(codacyEngine)
+
+lazy val codacyEngine = uri("ssh://git@github.com/codacy/codacy-engine-scala-seed.git")
+
 enablePlugins(JavaAppPackaging)
 
 enablePlugins(DockerPlugin)

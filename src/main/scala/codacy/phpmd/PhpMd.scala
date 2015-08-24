@@ -25,7 +25,6 @@ object PhpMd extends Tool {
       Try(cmd.lineStream_!).map { case output =>
         outputParsed(output.mkString)
       }
-
     }
   }
 
@@ -45,7 +44,7 @@ object PhpMd extends Tool {
     }
   }
 
-  private[this] def outputParsed(output: String)(implicit spec: Spec): Set[Result] = {
+  private[this] def outputParsed(output: String)(implicit spec: Spec): Set[_ <: Result] = {
     Try(XML.loadString(output)).map { case elem =>
       (elem \ "file").flatMap { case file =>
         Seq(file \@ "name").collect { case fname if fname.nonEmpty => SourcePath(fname) }
@@ -56,7 +55,7 @@ object PhpMd extends Tool {
               ruleSet = violation \@ "ruleset"
             ).flatMap { case patternId =>
               Try(
-                Result(
+                Issue(
                   filename = filename,
                   message = ResultMessage(violation.text.trim),
                   patternId = patternId,
