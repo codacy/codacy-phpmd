@@ -44,12 +44,16 @@ object PhpMd extends Tool {
     }
   }
 
-  private[this] def outputParsed(output: String)(implicit spec: Spec): Set[_ <: Result] = {
-    Try(XML.loadString(output)).map { case elem =>
-      (elem \ "file").flatMap { case file =>
+  private[this] def relativizeToolOutputPath(path:String):SourcePath = {
+    SourcePath( DockerEnvironment.sourcePath.relativize(Paths.get(path)).toString )
+  }
+
+  private[this] def outputParsed(output: String)(implicit spec: Spec): Seq[_ <: Result] = {
+    Try(XML.loadString(output)).map { case outputXml =>
+
+      val issues = (outputXml \ "file").flatMap { case file =>
         Seq(file \@ "name").collect { case fname if fname.nonEmpty =>
-         val relativePath = DockerEnvironment.sourcePath.relativize(Paths.get(fname))
-          SourcePath(relativePath.toString)
+          relativizeToolOutputPath(fname)
         }.flatMap { case filename =>
           (file \ "violation").flatMap { case violation =>
             patternIdByRuleNameAndRuleSet(
@@ -67,8 +71,17 @@ object PhpMd extends Tool {
             }
           }
         }
-      }.toSet
-    }.getOrElse(Set.empty[Result])
+      }//.toSet
+
+      val errors = (outputXml \ "error").map{ case error =>
+        val path = relativizeToolOutputPath(error \@ "filename")
+        val message = Option((error \@ "msg")).collect{ case msg if msg.nonEmpty => ErrorMessage(msg) }
+        FileError(path,message)
+      }
+
+      issues ++ errors
+
+    }.getOrElse(Seq.empty[Result])
   }
 
   private[this] def toXmlProperties(parameterDef: ParameterDef): Elem = {
