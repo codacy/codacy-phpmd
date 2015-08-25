@@ -1,7 +1,7 @@
 package codacy.phpmd
 
 import java.nio.charset.StandardCharsets
-import java.nio.file.{Paths, Files, Path, StandardOpenOption}
+import java.nio.file.{Files, Path, Paths, StandardOpenOption}
 
 import codacy.dockerApi._
 import play.api.libs.json.{JsString, Json}
@@ -22,7 +22,7 @@ object PhpMd extends Tool {
 
       val cmd = Seq("phpmd", filesPaths, "xml", configPath)
 
-      Try(cmd.lineStream_!).map { case output =>
+      Try(cmd.lineStream_!).flatMap { case output =>
         outputParsed(output.mkString)
       }
     }
@@ -44,11 +44,11 @@ object PhpMd extends Tool {
     }
   }
 
-  private[this] def relativizeToolOutputPath(path:String):SourcePath = {
-    SourcePath( DockerEnvironment.sourcePath.relativize(Paths.get(path)).toString )
+  private[this] def relativizeToolOutputPath(path: String): SourcePath = {
+    SourcePath(DockerEnvironment.sourcePath.relativize(Paths.get(path)).toString)
   }
 
-  private[this] def outputParsed(output: String)(implicit spec: Spec): Seq[_ <: Result] = {
+  private[this] def outputParsed(output: String)(implicit spec: Spec): Try[Seq[_ <: Result]] = {
     Try(XML.loadString(output)).map { case outputXml =>
 
       val issues = (outputXml \ "file").flatMap { case file =>
@@ -71,17 +71,17 @@ object PhpMd extends Tool {
             }
           }
         }
-      }//.toSet
+      } //.toSet
 
-      val errors = (outputXml \ "error").map{ case error =>
+      val errors = (outputXml \ "error").map { case error =>
         val path = relativizeToolOutputPath(error \@ "filename")
-        val message = Option((error \@ "msg")).collect{ case msg if msg.nonEmpty => ErrorMessage(msg) }
-        FileError(path,message)
+        val message = Option((error \@ "msg")).collect { case msg if msg.nonEmpty => ErrorMessage(msg) }
+        FileError(path, message)
       }
 
       issues ++ errors
 
-    }.getOrElse(Seq.empty[Result])
+    }
   }
 
   private[this] def toXmlProperties(parameterDef: ParameterDef): Elem = {
