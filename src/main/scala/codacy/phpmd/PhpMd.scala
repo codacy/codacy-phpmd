@@ -1,7 +1,7 @@
 package codacy.phpmd
 
 import java.nio.charset.StandardCharsets
-import java.nio.file.{Files, Path, StandardOpenOption}
+import java.nio.file.{Paths, Files, Path, StandardOpenOption}
 
 import codacy.dockerApi._
 import play.api.libs.json.{JsString, Json}
@@ -47,8 +47,10 @@ object PhpMd extends Tool {
   private[this] def outputParsed(output: String)(implicit spec: Spec): Set[_ <: Result] = {
     Try(XML.loadString(output)).map { case elem =>
       (elem \ "file").flatMap { case file =>
-        Seq(file \@ "name").collect { case fname if fname.nonEmpty => SourcePath(fname) }
-          .flatMap { case filename =>
+        Seq(file \@ "name").collect { case fname if fname.nonEmpty =>
+         val relativePath = DockerEnvironment.sourcePath.relativize(Paths.get(fname))
+          SourcePath(relativePath.toString)
+        }.flatMap { case filename =>
           (file \ "violation").flatMap { case violation =>
             patternIdByRuleNameAndRuleSet(
               ruleName = violation \@ "rule",
