@@ -1,4 +1,4 @@
-import com.typesafe.sbt.packager.docker._
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
 
 name := """codacy-engine-phpmd"""
 
@@ -48,7 +48,12 @@ mappings in Universal <++= (resourceDirectory in Compile) map { (resourceDir: Fi
   } yield path -> path.toString.replaceFirst(src.toString, dest)
 }
 
-daemonUser in Docker := "docker"
+val dockerUser = "docker"
+val dockerGroup = "docker"
+
+daemonUser in Docker := dockerUser
+
+daemonGroup in Docker := dockerGroup
 
 dockerBaseImage := "frolvlad/alpine-oraclejdk8"
 
@@ -58,7 +63,8 @@ dockerCommands := dockerCommands.value.flatMap {
   )
   case cmd@(Cmd("ADD", "opt /opt")) => List(cmd,
     Cmd("RUN", "mv /opt/docker/docs /docs"),
-    Cmd("RUN", "adduser -u 2004 -D docker")
+    Cmd("RUN", "adduser -u 2004 -D docker"),
+    ExecCmd("RUN", Seq("chown", "-R", s"$dockerUser:$dockerGroup", "/docs"): _*)
   )
   case other => List(other)
 }
