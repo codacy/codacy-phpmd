@@ -1,11 +1,5 @@
 [
   {
-    "patternId":"rulesets-cleancode.xml-BooleanArgumentFlag",
-    "title":"Avoid boolean flag",
-    "description":"",
-    "timeToFix":15
-  },
-  {
     "patternId":"rulesets-cleancode.xml-ElseExpression",
     "title":"Avoid else expressions",
     "description":"Use return statements instead of else expression",
@@ -212,43 +206,31 @@
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-design.xml-CouplingBetweenObjects",
-    "title":"Excessive class dependencies",
-    "description":"Avoid classes with too many dependencies",
-    "parameters":[
-      {
-        "name":"minimum",
-        "description":"Maximum number of acceptable dependencies"
-      }
-    ],
-    "timeToFix":5
-  },
-  {
-    "patternId":"rulesets-unusedcoderules.xml-UnusedPrivateField",
+    "patternId":"rulesets-unusedcode.xml-UnusedPrivateField",
     "title":"Prohibit unused private variables",
     "description":"Prohibit the definition or assignment of unused private variables",
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-unusedcoderules.xml-UnusedLocalVariable",
+    "patternId":"rulesets-unusedcode.xml-UnusedLocalVariable",
     "title":"Prohibit unused variables",
     "description":"Prohibit the definition or assignment of unused local variables",
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-unusedcoderules.xml-UnusedPrivateMethod",
+    "patternId":"rulesets-unusedcode.xml-UnusedPrivateMethod",
     "title":"Prohibit unused private methods",
     "description":"Prohibit the definition or assignment of unused private methods",
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-unusedcoderules.xml-UnusedFormalParameter",
+    "patternId":"rulesets-unusedcode.xml-UnusedFormalParameter",
     "title":"Prohibit unused arguments",
     "description":"Prohibit the definition of unused parameters on methods or constructors",
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-namingrules.xml-ShortVariable",
+    "patternId":"rulesets-naming.xml-ShortVariable",
     "title":"Prohibit short variable names",
     "description":"Detects when a field, local, or parameter has a very short name.",
     "parameters":[
@@ -264,7 +246,7 @@
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-namingrules.xml-LongVariable",
+    "patternId":"rulesets-naming.xml-LongVariable",
     "title":"Prohibit long variable names",
     "description":"Detects when a field, local, or parameter has a very long name.",
     "parameters":[
@@ -276,7 +258,7 @@
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-namingrules.xml-ShortMethodName",
+    "patternId":"rulesets-naming.xml-ShortMethodName",
     "title":"Prohibit short method names",
     "description":"Detects when very short method names are used.",
     "parameters":[
@@ -292,19 +274,19 @@
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-namingrules.xml-ConstructorWithNameAsEnclosingClass",
+    "patternId":"rulesets-naming.xml-ConstructorWithNameAsEnclosingClass",
     "title":"Prohibit constructor with class name",
     "description":"In PHP 5, a constructor should not have the same name as the enclosing class.",
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-namingrules.xml-ConstantNamingConventions",
+    "patternId":"rulesets-naming.xml-ConstantNamingConventions",
     "title":"Enforce uppercase constants",
     "description":"Constant names should always be defined in uppercase.",
     "timeToFix":5
   },
   {
-    "patternId":"rulesets-namingrules.xml-BooleanGetMethodName",
+    "patternId":"rulesets-naming.xml-BooleanGetMethodName",
     "title":"Enforce boolean naming convention",
     "description":"Boolean methods should be called 'isX()' or 'hasX()'",
     "timeToFix":5
