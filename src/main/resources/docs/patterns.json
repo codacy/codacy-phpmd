@@ -13,7 +13,13 @@
       "category": "CodeStyle",
       "title": "Avoid static access",
       "description": "Static access leads to hard to test code",
-      "level": "Info"
+      "level": "Info",
+      "parameters": [
+        {
+          "name": "exceptions",
+          "default": ""
+        }
+      ]
     },
     {
       "patternId": "rulesets-codesize.xml-CyclomaticComplexity",
