@@ -9,7 +9,13 @@
     "patternId":"rulesets-cleancode.xml-StaticAccess",
     "title":"Avoid static access",
     "description":"Static access leads to hard to test code",
-    "timeToFix":15
+    "timeToFix":15,
+    "parameters": [
+      {
+        "name": "exceptions",
+        "description": "Comma-separated class name list of exceptions"
+      }
+    ]
   },
   {
     "patternId":"rulesets-codesize.xml-CyclomaticComplexity",
