@@ -23,7 +23,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-CyclomaticComplexity",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Cyclomatic complexity",
       "description": "This pattern reports methods with high cyclomatic complexity",
       "parameters": [
@@ -44,7 +44,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-NPathComplexity",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "NPath complexity",
       "description": "This pattern reports methods with a large number of possible paths",
       "parameters": [
@@ -57,7 +57,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveMethodLength",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive method length",
       "description": "This pattern reports excessively long methods.",
       "parameters": [
@@ -70,7 +70,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveClassLength",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive class length",
       "description": "This pattern reports excessively long classes.",
       "parameters": [
@@ -83,7 +83,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveParameterList",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive parameters",
       "description": "This pattern reports methods with a high number of parameters.",
       "parameters": [
@@ -96,7 +96,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessivePublicCount",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive public attributes",
       "description": "This pattern reports classes with a high number of public methods and attributes.",
       "parameters": [
@@ -109,7 +109,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-TooManyFields",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive fields",
       "description": "This pattern reports classes with a high number of fields.",
       "parameters": [
@@ -122,7 +122,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-TooManyMethods",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive methods",
       "description": "This pattern reports classes with a high number of methods.",
       "parameters": [
@@ -135,7 +135,7 @@
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveClassComplexity",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Weighted method count",
       "description": "This pattern reports classes with a high weighted method count.",
       "parameters": [
@@ -211,7 +211,7 @@
     },
     {
       "patternId": "rulesets-design.xml-NumberOfChildren",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive class children number",
       "description": "Avoid classes with too many children",
       "parameters": [
@@ -224,7 +224,7 @@
     },
     {
       "patternId": "rulesets-design.xml-DepthOfInheritance",
-      "category": "Complexity",
+      "category": "CodeStyle",
       "title": "Excessive class parents",
       "description": "Avoid classes with too many parents parents",
       "parameters": [
