@@ -29,13 +29,14 @@ val installAll =
   s"""
      |export COMPOSER_HOME=/opt/composer &&
      |mkdir -p $$COMPOSER_HOME &&
-     |apk update &&
-     |apk add bash curl git php5 php5-xml php5-cli php5-pdo php5-curl php5-json php5-phar php5-ctype php5-openssl php5-dom &&
+     |apk --no-cache add bash curl git php php-xml php-cli php-pdo php-curl php-json php-phar php-ctype php-openssl php-dom &&
      |curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer &&
      |composer global require "sebastian/phpcpd=2.0.1" &&
      |composer global require "phpmd/phpmd=2.2.2" &&
      |chmod -R 777 /opt &&
-     |ln -s /opt/composer/vendor/bin/phpmd /bin/phpmd
+     |ln -s /opt/composer/vendor/bin/phpmd /bin/phpmd &&
+     |apk del curl git
+     |rm -rf /var/cache/apk/*
    """.stripMargin.replaceAll(System.lineSeparator(), " ")
 
 mappings in Universal <++= (resourceDirectory in Compile) map { (resourceDir: File) =>
@@ -55,7 +56,7 @@ daemonUser in Docker := dockerUser
 
 daemonGroup in Docker := dockerGroup
 
-dockerBaseImage := "frolvlad/alpine-oraclejdk8"
+dockerBaseImage := "develar/java"
 
 dockerCommands := dockerCommands.value.flatMap {
   case cmd@Cmd("WORKDIR", _) => List(cmd,
@@ -63,7 +64,7 @@ dockerCommands := dockerCommands.value.flatMap {
   )
   case cmd@(Cmd("ADD", "opt /opt")) => List(cmd,
     Cmd("RUN", "mv /opt/docker/docs /docs"),
-    Cmd("RUN", "adduser -u 2004 -D docker"),
+    Cmd("RUN", s"adduser -u 2004 -D $dockerUser"),
     ExecCmd("RUN", Seq("chown", "-R", s"$dockerUser:$dockerGroup", "/docs"): _*)
   )
   case other => List(other)
