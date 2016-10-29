@@ -1,5 +1,6 @@
 package codacy.phpmd
 
+import java.io.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, Paths, StandardOpenOption}
 
@@ -7,26 +8,39 @@ import codacy.dockerApi._
 import codacy.dockerApi.utils.CommandRunner
 import play.api.libs.json.{JsString, Json}
 
-import scala.util.{Success, Try}
+import scala.util.{Failure, Success, Try}
 import scala.xml._
 
 object PhpMd extends Tool {
 
+  lazy val configFileNames = Set("codesize.xml")
+
   def apply(path: Path, patternDefs: Option[List[PatternDef]], files: Option[Set[Path]])(implicit spec: Spec): Try[List[Result]] = {
-    patternDefs.map { case patterns => Try(configFromPatterns(patterns)).flatMap(fileForConfig).
-      map(Option.apply)
-    }.getOrElse(Success(Option.empty[Path])).flatMap { case maybeConfigFile =>
-      val configPath = maybeConfigFile.map(_.toAbsolutePath.toString).getOrElse(defaultRulesPath)
+    lazy val nativeConfigParam = {
+      configFileNames.map( fn => Try( better.files.File(path) / fn ) ).collectFirst{ case Success(file) if file.isRegularFile =>
+        file
+      }.map(_.toJava.getAbsolutePath)
+    }
 
+    val patternConfigParam = {
+      patternDefs.map { case patterns => Try(configFromPatterns(patterns)).flatMap(fileForConfig).map(_.toAbsolutePath.toString) }
+    }
+
+    val cfgParam = patternConfigParam match{
+      case Some(Success(config)) => Success(config)
+      case None => Success(nativeConfigParam.getOrElse(defaultRulesPath))
+      case Some(f) => f
+    }
+
+    cfgParam.flatMap{ case configPath =>
       val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(path.toString)
-
       val cmd = List("phpmd", filesPaths, "xml", configPath)
 
       CommandRunner.exec(cmd) match {
         case Right(result) =>
-          outputParsed(result.stdout.mkString)
+          outputParsed(path, result.stdout.mkString)
         case Left(failure) =>
-          throw failure
+          Failure(failure)
       }
     }
   }
@@ -47,16 +61,16 @@ object PhpMd extends Tool {
     }
   }
 
-  private[this] def relativizeToolOutputPath(path: String): SourcePath = {
-    SourcePath(DockerEnvironment.sourcePath.relativize(Paths.get(path)).toString)
+  private[this] def relativizeToolOutputPath(basePath:Path, path: String): SourcePath = {
+    SourcePath(basePath.relativize(Paths.get(path)).toString)
   }
 
-  private[this] def outputParsed(output: String)(implicit spec: Spec): Try[List[_ <: Result]] = {
+  private[this] def outputParsed(basePath:Path, output: String)(implicit spec: Spec): Try[List[_ <: Result]] = {
     Try(XML.loadString(output)).map { case outputXml =>
 
       val issues = (outputXml \ "file").flatMap { case file =>
         List(file \@ "name").collect { case fname if fname.nonEmpty =>
-          relativizeToolOutputPath(fname)
+          relativizeToolOutputPath(basePath, fname)
         }.flatMap { case filename =>
           (file \ "violation").flatMap { case violation =>
             patternIdByRuleNameAndRuleSet(
@@ -77,7 +91,7 @@ object PhpMd extends Tool {
       } //.toSet
 
       val errors = (outputXml \ "error").map { case error =>
-        val path = relativizeToolOutputPath(error \@ "filename")
+        val path = relativizeToolOutputPath(basePath, error \@ "filename")
         val message = Option((error \@ "msg")).collect { case msg if msg.nonEmpty => ErrorMessage(msg) }
         FileError(path, message)
       }
