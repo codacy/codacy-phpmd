@@ -32,8 +32,7 @@ val installAll =
      |mkdir -p $$COMPOSER_HOME &&
      |apk --no-cache add bash curl git php php-xml php-cli php-pdo php-curl php-json php-phar php-ctype php-openssl php-dom &&
      |curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer &&
-     |composer global require "sebastian/phpcpd=2.0.1" &&
-     |composer global require "phpmd/phpmd=2.2.2" &&
+     |composer global require "phpmd/phpmd=2.6.0" &&
      |chmod -R 777 /opt &&
      |ln -s /opt/composer/vendor/bin/phpmd /bin/phpmd &&
      |apk del curl git
