@@ -7,7 +7,7 @@ import codacy.dockerApi._
 import codacy.dockerApi.utils.CommandRunner
 import play.api.libs.json.{JsString, Json}
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Properties, Success, Try}
 import scala.xml._
 
 object PhpMd extends Tool {
@@ -37,7 +37,18 @@ object PhpMd extends Tool {
 
       CommandRunner.exec(cmd) match {
         case Right(result) =>
-          outputParsed(path, result.stdout.mkString)
+          outputParsed(path, result.stdout.mkString) match {
+            case s@Success(_) => s
+            case Failure(e) =>
+              val msg =
+                s"""
+                   |PHP Mess Detector exited with code ${result.exitCode}
+                   |message: ${e.getMessage}
+                   |stdout: ${result.stdout.mkString(Properties.lineSeparator)}
+                   |stderr: ${result.stderr.mkString(Properties.lineSeparator)}
+                """.stripMargin
+              Failure(new Exception(msg))
+          }
         case Left(failure) =>
           Failure(failure)
       }
