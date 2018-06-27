@@ -35,7 +35,7 @@ object PhpMd extends Tool {
       val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(path.toString)
       val cmd = List("phpmd", filesPaths, "xml", configPath)
 
-      CommandRunner.exec(cmd) match {
+      CommandRunner.exec(cmd, Option(path.toFile)) match {
         case Right(result) =>
           outputParsed(path, result.stdout.mkString) match {
             case s@Success(_) => s
