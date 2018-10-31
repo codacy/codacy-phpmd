@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Compile test project
           working_directory: ~/codacy-plugins-test
-          command: sbt compile
+          command: cat /dev/null | sbt compile
       - run:
           name: Publish tool docker locally
           working_directory: ~/workdir
