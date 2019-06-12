@@ -1,6 +1,6 @@
 package codacy
 
-import codacy.dockerApi.DockerEngine
 import codacy.phpmd.PhpMd
+import com.codacy.tools.scala.seed.DockerEngine
 
-object Engine extends DockerEngine(PhpMd)
+object Engine extends DockerEngine(PhpMd)()

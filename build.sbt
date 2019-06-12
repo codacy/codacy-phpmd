@@ -4,9 +4,7 @@ name := """codacy-engine-phpmd"""
 
 version := "1.0-SNAPSHOT"
 
-val languageVersion = "2.11.7"
-
-scalaVersion := languageVersion
+scalaVersion := "2.12.7"
 
 resolvers ++= Seq(
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/releases",
@@ -14,9 +12,9 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-json" % "2.3.8" withSources(),
-  "org.scala-lang.modules" %% "scala-xml" % "1.0.4" withSources(),
-  "com.codacy" %% "codacy-engine-scala-seed" % "2.7.1",
+  "com.typesafe.play" %% "play-json" % "2.7.3" withSources(),
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.6" withSources(),
+  "com.codacy" %% "codacy-engine-scala-seed" % "3.0.9",
   "com.github.pathikrit" %% "better-files" % "2.16.0"
 )
 
