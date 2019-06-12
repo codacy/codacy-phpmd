@@ -3,8 +3,13 @@ package codacy.phpmd
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, Paths, StandardOpenOption}
 
-import codacy.dockerApi._
-import codacy.dockerApi.utils.CommandRunner
+import better.files.File
+import com.codacy.plugins.api.results.Result.{FileError, Issue}
+import com.codacy.plugins.api.results.Tool.Specification
+import com.codacy.plugins.api.results.{Parameter, Pattern, Result, Tool}
+import com.codacy.plugins.api.{ErrorMessage, Options, Source}
+import com.codacy.plugins.api.paramValueToJsValue
+import com.codacy.tools.scala.seed.utils.CommandRunner
 import play.api.libs.json.{JsString, Json}
 
 import scala.util.{Failure, Properties, Success, Try}
@@ -14,15 +19,18 @@ object PhpMd extends Tool {
 
   lazy val configFileNames = Set("codesize.xml", "phpmd.xml")
 
-  def apply(path: Path, patternDefs: Option[List[PatternDef]], files: Option[Set[Path]])(implicit spec: Spec): Try[List[Result]] = {
+  override def apply(source: Source.Directory,
+                     configuration: Option[List[Pattern.Definition]],
+                     files: Option[Set[Source.File]],
+                     options: Map[Options.Key, Options.Value])(implicit specification: Specification): Try[List[Result]] = {
     lazy val nativeConfigParam = {
-      configFileNames.map(fn => Try(better.files.File(path) / fn)).collectFirst { case Success(file) if file.isRegularFile =>
+      configFileNames.map(fn => Try(better.files.File(source.path) / fn)).collectFirst { case Success(file) if file.isRegularFile =>
         file
       }.map(_.toJava.getAbsolutePath)
     }
 
     val patternConfigParam = {
-      patternDefs.map { patterns => Try(configFromPatterns(patterns)).flatMap(fileForConfig).map(_.toAbsolutePath.toString) }
+      configuration.map { patterns => Try(configFromPatterns(patterns)).flatMap(fileForConfig).map(_.toAbsolutePath.toString) }
     }
 
     val cfgParam = patternConfigParam match {
@@ -32,12 +40,12 @@ object PhpMd extends Tool {
     }
 
     cfgParam.flatMap { configPath =>
-      val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(path.toString)
+      val filesPaths = files.map(_.map(_.toString).mkString(",")).getOrElse(source.path)
       val cmd = List("phpmd", filesPaths, "xml", configPath)
 
-      CommandRunner.exec(cmd, Option(path.toFile)) match {
+      CommandRunner.exec(cmd, Option(File(source.path).toJava)) match {
         case Right(result) =>
-          outputParsed(path, result.stdout.mkString) match {
+          outputParsed(File(source.path).path, result.stdout.mkString) match {
             case s@Success(_) => s
             case Failure(e) =>
               val msg =
@@ -65,24 +73,24 @@ object PhpMd extends Tool {
     s"rulesets-$rsPart.xml-$ruleName"
   }
 
-  private[this] def patternIdByRuleNameAndRuleSet(ruleName: String, ruleSet: String)(implicit spec: Spec): Option[PatternId] = {
+  private[this] def patternIdByRuleNameAndRuleSet(ruleName: String, ruleSet: String)(implicit spec: Specification): Option[Pattern.Id] = {
     spec.patterns.collectFirst {
       case pattern if pattern.patternId.value == xmlLocation(ruleName, ruleSet) || pattern.patternId.value.endsWith(ruleName) =>
         pattern.patternId
     }
   }
 
-  private[this] def relativizeToolOutputPath(basePath: Path, path: String): SourcePath = {
-    SourcePath(basePath.relativize(Paths.get(path)).toString)
+  private[this] def relativizeToolOutputPath(basePath: Path, path: String): Source.File = {
+    Source.File(basePath.relativize(Paths.get(path)).toString)
   }
 
-  private[this] def outputParsed(basePath: Path, output: String)(implicit spec: Spec): Try[List[_ <: Result]] = {
+  private[this] def outputParsed(basePath: Path, output: String)(implicit spec: Specification): Try[List[_ <: Result]] = {
     Try(XML.loadString(output)).map { outputXml =>
 
       val issues = (outputXml \ "file").flatMap { file =>
         List(file \@ "name").collect { case fname if fname.nonEmpty =>
           relativizeToolOutputPath(basePath, fname)
-        }.flatMap { filename =>
+        }.flatMap { fileName =>
           (file \ "violation").flatMap { violation =>
             patternIdByRuleNameAndRuleSet(
               ruleName = violation \@ "rule",
@@ -90,10 +98,10 @@ object PhpMd extends Tool {
             ).flatMap { patternId =>
               Try(
                 Issue(
-                  filename = filename,
-                  message = ResultMessage(violation.text.trim),
+                  file = fileName,
+                  message = Result.Message(violation.text.trim),
                   patternId = patternId,
-                  line = ResultLine((violation \@ "beginline").toInt)
+                  line = Source.Line((violation \@ "beginline").toInt)
                 )
               ).toOption
             }
@@ -112,15 +120,15 @@ object PhpMd extends Tool {
     }
   }
 
-  private[this] def toXmlProperties(parameterDef: ParameterDef): Elem = {
-    val stringValue = parameterDef.value match {
+  private[this] def toXmlProperties(parameterDef: Parameter.Definition): Elem = {
+    val stringValue = paramValueToJsValue(parameterDef.value) match {
       case JsString(value) => value
       case other => Json.stringify(other)
     }
       <property name={parameterDef.name.value} value={stringValue}/>
   }
 
-  private[this] def toXmlRule(patternDef: PatternDef)(implicit spec: Spec): Elem = {
+  private[this] def toXmlRule(patternDef: Pattern.Definition)(implicit spec: Specification): Elem = {
     //get all default parameters and replace the ones supplied
     val defaultParams = defaultParametersFor(patternDef)
     val suppliedParams = patternDef.parameters.getOrElse(Set.empty)
@@ -135,19 +143,19 @@ object PhpMd extends Tool {
     </rule>
   }
 
-  private[this] def defaultParametersFor(patternDef: PatternDef)(implicit spec: Spec): Set[ParameterDef] = {
+  private[this] def defaultParametersFor(patternDef: Pattern.Definition)(implicit spec: Specification): Set[Parameter.Definition] = {
     spec.patterns.collectFirst {
       case patternSpec if patternSpec.patternId == patternDef.patternId =>
         patternSpec.parameters.map(_.map { parameter =>
-          ParameterDef(parameter.name, parameter.default)
+          Parameter.Definition(parameter.name, parameter.default)
         })
     } match {
       case Some(Some(params)) => params
-      case _ => Set.empty[ParameterDef]
+      case _ => Set.empty[Parameter.Definition]
     }
   }
 
-  private[this] def configFromPatterns(patterns: List[PatternDef])(implicit spec: Spec): Elem =
+  private[this] def configFromPatterns(patterns: List[Pattern.Definition])(implicit spec: Specification): Elem =
     <ruleset name="PHPMD rule set"
              xmlns="http://pmd.sf.net/ruleset/1.0.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -165,5 +173,4 @@ object PhpMd extends Tool {
       StandardOpenOption.CREATE
     ))
   }
-
 }
