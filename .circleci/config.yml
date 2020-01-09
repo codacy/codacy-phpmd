@@ -128,10 +128,6 @@ jobs:
             - "~/workdir/project/target"
             - "~/workdir/project/project"
       - run:
-          name: Test json
-          working_directory: ~/codacy-plugins-test
-          command: sbt -Dcodacy.tests.ignore.descriptions=true "runMain codacy.plugins.DockerTest json $CIRCLE_PROJECT_REPONAME:latest"
-      - run:
           name: Test patterns
           working_directory: ~/codacy-plugins-test
           command: sbt -Dcodacy.tests.noremove=true -Dcodacy.tests.threads=8 "runMain codacy.plugins.DockerTest pattern $CIRCLE_PROJECT_REPONAME:latest"
