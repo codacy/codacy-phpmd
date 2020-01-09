@@ -1,19 +1,14 @@
-import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
+import com.typesafe.sbt.packager.docker.Cmd
 
-name := """codacy-engine-phpmd"""
+name := "codacy-phpmd"
 
 version := "1.0-SNAPSHOT"
 
 scalaVersion := "2.13.1"
 
-resolvers ++= Seq(
-  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/releases",
-  "Typesafe Repo" at "http://repo.typesafe.com/typesafe/releases/"
-)
-
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-json" % "2.8.1" withSources(),
-  "org.scala-lang.modules" %% "scala-xml" % "1.2.0" withSources(),
+  "com.typesafe.play" %% "play-json" % "2.8.1" withSources (),
+  "org.scala-lang.modules" %% "scala-xml" % "1.2.0" withSources (),
   "com.codacy" %% "codacy-engine-scala-seed" % "3.1.0",
   "com.github.pathikrit" %% "better-files" % "3.8.0"
 )
@@ -38,15 +33,13 @@ val installAll =
    """.stripMargin.replaceAll(System.lineSeparator(), " ")
 
 mappings in Universal ++= (resourceDirectory in Compile).map { resourceDir =>
-    val src = resourceDir / "docs"
-    val dest = "/docs"
+  val src = resourceDir / "docs"
+  val dest = "/docs"
 
-    val docFiles = for {
-      path <- src.allPaths.get if !path.isDirectory
-    } yield path -> path.toString.replaceFirst(src.toString, dest)
-
-    docFiles
-  }.value
+  for {
+    path <- src.allPaths.get if !path.isDirectory
+  } yield path -> path.toString.replaceFirst(src.toString, dest)
+}.value
 
 val dockerUser = "docker"
 val dockerGroup = "docker"
@@ -64,7 +57,7 @@ dockerCommands := dockerCommands.value.flatMap {
       cmd,
       Cmd("RUN", installAll),
       Cmd("RUN", "mv /opt/docker/docs /docs"),
-      ExecCmd("RUN", "chown", "-R", s"$dockerUser:$dockerUser", "/docs")
+      Cmd("RUN", s"chown -R $dockerUser:$dockerUser /docs")
     )
   case other => List(other)
 }
