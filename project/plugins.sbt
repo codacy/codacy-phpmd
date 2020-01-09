@@ -1,1 +1,2 @@
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.3")
+resolvers += Resolver.jcenterRepo
+addSbtPlugin("com.codacy" % "codacy-sbt-plugin" % "17.1.5")

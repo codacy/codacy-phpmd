@@ -1,15 +1,15 @@
 [
   {
-    "patternId":"rulesets-cleancode.xml-ElseExpression",
-    "title":"Avoid else expressions",
-    "description":"Use return statements instead of else expression",
-    "timeToFix":15
+    "patternId": "rulesets-cleancode.xml-ElseExpression",
+    "title": "Avoid else expressions",
+    "description": "Use return statements instead of else expression",
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-cleancode.xml-StaticAccess",
-    "title":"Avoid static access",
-    "description":"Static access leads to hard to test code",
-    "timeToFix":15,
+    "patternId": "rulesets-cleancode.xml-StaticAccess",
+    "title": "Avoid static access",
+    "description": "Static access leads to hard to test code",
+    "timeToFix": 15,
     "parameters": [
       {
         "name": "exceptions",
@@ -18,283 +18,313 @@
     ]
   },
   {
-    "patternId":"rulesets-codesize.xml-CyclomaticComplexity",
-    "title":"Cyclomatic complexity",
-    "description":"This pattern reports methods with high cyclomatic complexity",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-CyclomaticComplexity",
+    "title": "Cyclomatic complexity",
+    "description": "This pattern reports methods with high cyclomatic complexity",
+    "parameters": [
       {
-        "name":"reportLevel",
-        "description":"The Cyclomatic Complexity reporting threshold"
+        "name": "reportLevel",
+        "description": "The Cyclomatic Complexity reporting threshold"
       },
       {
-        "name":"showClassesComplexity",
-        "description":"Indicate if class average violation should be included"
+        "name": "showClassesComplexity",
+        "description": "Indicate if class average violation should be included"
       },
       {
-        "name":"showMethodsComplexity",
-        "description":"Indicate if method average violation should be included"
+        "name": "showMethodsComplexity",
+        "description": "Indicate if method average violation should be included"
       }
     ],
-    "timeToFix":30
+    "timeToFix": 30
   },
   {
-    "patternId":"rulesets-codesize.xml-NPathComplexity",
-    "title":"NPath complexity",
-    "description":"This pattern reports methods with a large number of possible paths",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-NPathComplexity",
+    "title": "NPath complexity",
+    "description": "This pattern reports methods with a large number of possible paths",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Reporting threshold"
+        "name": "minimum",
+        "description": "Reporting threshold"
       }
     ],
-    "timeToFix":30
+    "timeToFix": 30
   },
   {
-    "patternId":"rulesets-codesize.xml-ExcessiveMethodLength",
-    "title":"Excessive method length",
-    "description":"This pattern reports excessively long methods.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-ExcessiveMethodLength",
+    "title": "Excessive method length",
+    "description": "This pattern reports excessively long methods.",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Reporting threshold for the number of lines in a method"
+        "name": "minimum",
+        "description": "Reporting threshold for the number of lines in a method"
       }
     ],
-    "timeToFix":15
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-codesize.xml-ExcessiveClassLength",
-    "title":"Excessive class length",
-    "description":"This pattern reports excessively long classes.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-ExcessiveClassLength",
+    "title": "Excessive class length",
+    "description": "This pattern reports excessively long classes.",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Reporting threshold for the number of lines in a class"
+        "name": "minimum",
+        "description": "Reporting threshold for the number of lines in a class"
       }
     ],
-    "timeToFix":15
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-codesize.xml-ExcessiveParameterList",
-    "title":"Excessive parameters",
-    "description":"This pattern reports methods with a high number of parameters.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-ExcessiveParameterList",
+    "title": "Excessive parameters",
+    "description": "This pattern reports methods with a high number of parameters.",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Reporting threshold for the number of arguments in a method"
+        "name": "minimum",
+        "description": "Reporting threshold for the number of arguments in a method"
       }
     ],
-    "timeToFix":15
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-codesize.xml-ExcessivePublicCount",
-    "title":"Excessive public attributes",
-    "description":"This pattern reports classes with a high number of public methods and attributes.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-ExcessivePublicCount",
+    "title": "Excessive public attributes",
+    "description": "This pattern reports classes with a high number of public methods and attributes.",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Reporting threshold for the number of public methods and attributes in a class"
+        "name": "minimum",
+        "description": "Reporting threshold for the number of public methods and attributes in a class"
       }
     ],
-    "timeToFix":15
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-codesize.xml-TooManyFields",
-    "title":"Excessive fields",
-    "description":"This pattern reports classes with a high number of fields.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-TooManyFields",
+    "title": "Excessive fields",
+    "description": "This pattern reports classes with a high number of fields.",
+    "parameters": [
       {
-        "name":"maxfields",
-        "description":"Reporting threshold for the number of fields in a class"
+        "name": "maxfields",
+        "description": "Reporting threshold for the number of fields in a class"
       }
     ],
-    "timeToFix":15
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-codesize.xml-TooManyMethods",
-    "title":"Excessive methods",
-    "description":"This pattern reports classes with a high number of methods.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-TooManyMethods",
+    "title": "Excessive methods",
+    "description": "This pattern reports classes with a high number of methods.",
+    "parameters": [
       {
-        "name":"maxmethods",
-        "description":"Reporting threshold for the number of methods in a class"
+        "name": "maxmethods",
+        "description": "Reporting threshold for the number of methods in a class"
       }
     ],
-    "timeToFix":15
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-codesize.xml-ExcessiveClassComplexity",
-    "title":"Weighted method count",
-    "description":"This pattern reports classes with a high weighted method count.",
-    "parameters":[
+    "patternId": "rulesets-codesize.xml-ExcessiveClassComplexity",
+    "title": "Weighted method count",
+    "description": "This pattern reports classes with a high weighted method count.",
+    "parameters": [
       {
-        "name":"maximum",
-        "description":"The maximum WMC tolerable for a class"
+        "name": "maximum",
+        "description": "The maximum WMC tolerable for a class"
       }
     ],
-    "timeToFix":10
+    "timeToFix": 10
   },
   {
-    "patternId":"rulesets-controversial.xml-Superglobals",
-    "title":"Encapsulate Superglobals",
-    "description":"Prohibit direct access to superglobal variables",
-    "timeToFix":10
+    "patternId": "rulesets-controversial.xml-Superglobals",
+    "title": "Encapsulate Superglobals",
+    "description": "Prohibit direct access to superglobal variables",
+    "timeToFix": 10
   },
   {
-    "patternId":"rulesets-controversial.xml-CamelCaseClassName",
-    "title":"Enforce CamelCase in classes",
-    "description":"Requires all class names to use the CamelCase style",
-    "timeToFix":5
+    "patternId": "rulesets-controversial.xml-CamelCaseClassName",
+    "title": "Enforce CamelCase in classes",
+    "description": "Requires all class names to use the CamelCase style",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-controversial.xml-CamelCasePropertyName",
-    "title":"Enforce CamelCase in properties",
-    "description":"Requires all property names to use the CamelCase style",
-    "timeToFix":5
+    "patternId": "rulesets-controversial.xml-CamelCasePropertyName",
+    "title": "Enforce CamelCase in properties",
+    "description": "Requires all property names to use the CamelCase style",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-controversial.xml-CamelCaseMethodName",
-    "title":"Enforce CamelCase in methods",
-    "description":"Requires all method names to use the CamelCase style",
-    "timeToFix":5
+    "patternId": "rulesets-controversial.xml-CamelCaseMethodName",
+    "title": "Enforce CamelCase in methods",
+    "description": "Requires all method names to use the CamelCase style",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-controversial.xml-CamelCaseParameterName",
-    "title":"Enforce CamelCase in parameters",
-    "description":"Requires all parameter names to use the CamelCase style",
-    "timeToFix":5
+    "patternId": "rulesets-controversial.xml-CamelCaseParameterName",
+    "title": "Enforce CamelCase in parameters",
+    "description": "Requires all parameter names to use the CamelCase style",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-controversial.xml-CamelCaseVariableName",
-    "title":"Enforce CamelCase in variables",
-    "description":"Requires all variable names to use the CamelCase style",
-    "timeToFix":5
+    "patternId": "rulesets-controversial.xml-CamelCaseVariableName",
+    "title": "Enforce CamelCase in variables",
+    "description": "Requires all variable names to use the CamelCase style",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-design.xml-ExitExpression",
-    "title":"Prohibit exit-expression",
-    "description":"Prohibit the use of exit-expressions within regular code, it is not testable",
-    "timeToFix":10
+    "patternId": "rulesets-design.xml-ExitExpression",
+    "title": "Prohibit exit-expression",
+    "description": "Prohibit the use of exit-expressions within regular code, it is not testable",
+    "timeToFix": 10
   },
   {
-    "patternId":"rulesets-design.xml-EvalExpression",
-    "title":"Prohibit eval expression",
-    "description":"Prohibit the use of eval, it is untestable, a security risk and bad practice",
-    "timeToFix":15
+    "patternId": "rulesets-design.xml-EvalExpression",
+    "title": "Prohibit eval expression",
+    "description": "Prohibit the use of eval, it is untestable, a security risk and bad practice",
+    "timeToFix": 15
   },
   {
-    "patternId":"rulesets-design.xml-GotoStatement",
-    "title":"Prohibit goto",
-    "description":"Prohibit the use of goto, it makes the code harder to read nearly impossible to understand",
-    "timeToFix":10
+    "patternId": "rulesets-design.xml-GotoStatement",
+    "title": "Prohibit goto",
+    "description": "Prohibit the use of goto, it makes the code harder to read nearly impossible to understand",
+    "timeToFix": 10
   },
   {
-    "patternId":"rulesets-design.xml-NumberOfChildren",
-    "title":"Excessive class children number",
-    "description":"Avoid classes with too many children",
-    "parameters":[
+    "patternId": "rulesets-design.xml-NumberOfChildren",
+    "title": "Excessive class children number",
+    "description": "Avoid classes with too many children",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Maximum number of acceptable child classes"
+        "name": "minimum",
+        "description": "Maximum number of acceptable child classes"
       }
     ],
-    "timeToFix":5
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-design.xml-DepthOfInheritance",
-    "title":"Excessive class parents",
-    "description":"Avoid classes with too many parents parents",
-    "parameters":[
+    "patternId": "rulesets-design.xml-DepthOfInheritance",
+    "title": "Excessive class parents",
+    "description": "Avoid classes with too many parents parents",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Maximum number of acceptable parent classes"
+        "name": "minimum",
+        "description": "Maximum number of acceptable parent classes"
       }
     ],
-    "timeToFix":5
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-unusedcode.xml-UnusedPrivateField",
-    "title":"Prohibit unused private variables",
-    "description":"Prohibit the definition or assignment of unused private variables",
-    "timeToFix":5
+    "patternId": "rulesets-unusedcode.xml-UnusedPrivateField",
+    "title": "Prohibit unused private variables",
+    "description": "Prohibit the definition or assignment of unused private variables",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-unusedcode.xml-UnusedLocalVariable",
-    "title":"Prohibit unused variables",
-    "description":"Prohibit the definition or assignment of unused local variables",
-    "timeToFix":5
+    "patternId": "rulesets-unusedcode.xml-UnusedLocalVariable",
+    "title": "Prohibit unused variables",
+    "description": "Prohibit the definition or assignment of unused local variables",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-unusedcode.xml-UnusedPrivateMethod",
-    "title":"Prohibit unused private methods",
-    "description":"Prohibit the definition or assignment of unused private methods",
-    "timeToFix":5
+    "patternId": "rulesets-unusedcode.xml-UnusedPrivateMethod",
+    "title": "Prohibit unused private methods",
+    "description": "Prohibit the definition or assignment of unused private methods",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-unusedcode.xml-UnusedFormalParameter",
-    "title":"Prohibit unused arguments",
-    "description":"Prohibit the definition of unused parameters on methods or constructors",
-    "timeToFix":5
+    "patternId": "rulesets-unusedcode.xml-UnusedFormalParameter",
+    "title": "Prohibit unused arguments",
+    "description": "Prohibit the definition of unused parameters on methods or constructors",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-naming.xml-ShortVariable",
-    "title":"Prohibit short variable names",
-    "description":"Detects when a field, local, or parameter has a very short name.",
-    "parameters":[
+    "patternId": "rulesets-naming.xml-ShortVariable",
+    "title": "Prohibit short variable names",
+    "description": "Detects when a field, local, or parameter has a very short name.",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Minimum length for a variable"
+        "name": "minimum",
+        "description": "Minimum length for a variable"
       },
       {
-        "name":"exceptions",
-        "description":"Comma-separated list of exceptions"
+        "name": "exceptions",
+        "description": "Comma-separated list of exceptions"
       }
     ],
-    "timeToFix":5
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-naming.xml-LongVariable",
-    "title":"Prohibit long variable names",
-    "description":"Detects when a field, local, or parameter has a very long name.",
-    "parameters":[
+    "patternId": "rulesets-naming.xml-LongVariable",
+    "title": "Prohibit long variable names",
+    "description": "Detects when a field, local, or parameter has a very long name.",
+    "parameters": [
       {
-        "name":"maximum",
-        "description":"Maximum length for a variable"
+        "name": "maximum",
+        "description": "Maximum length for a variable"
       }
     ],
-    "timeToFix":5
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-naming.xml-ShortMethodName",
-    "title":"Prohibit short method names",
-    "description":"Detects when very short method names are used.",
-    "parameters":[
+    "patternId": "rulesets-naming.xml-ShortMethodName",
+    "title": "Prohibit short method names",
+    "description": "Detects when very short method names are used.",
+    "parameters": [
       {
-        "name":"minimum",
-        "description":"Minimum length for a method"
+        "name": "minimum",
+        "description": "Minimum length for a method"
       },
       {
-        "name":"exceptions",
-        "description":"Comma-separated list of exceptions"
+        "name": "exceptions",
+        "description": "Comma-separated list of exceptions"
       }
     ],
-    "timeToFix":5
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-naming.xml-ConstructorWithNameAsEnclosingClass",
-    "title":"Prohibit constructor with class name",
-    "description":"In PHP 5, a constructor should not have the same name as the enclosing class.",
-    "timeToFix":5
+    "patternId": "rulesets-naming.xml-ConstructorWithNameAsEnclosingClass",
+    "title": "Prohibit constructor with class name",
+    "description": "In PHP 5, a constructor should not have the same name as the enclosing class.",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-naming.xml-ConstantNamingConventions",
-    "title":"Enforce uppercase constants",
-    "description":"Constant names should always be defined in uppercase.",
-    "timeToFix":5
+    "patternId": "rulesets-naming.xml-ConstantNamingConventions",
+    "title": "Enforce uppercase constants",
+    "description": "Constant names should always be defined in uppercase.",
+    "timeToFix": 5
   },
   {
-    "patternId":"rulesets-naming.xml-BooleanGetMethodName",
-    "title":"Enforce boolean naming convention",
-    "description":"Boolean methods should be called 'isX()' or 'hasX()'",
-    "timeToFix":5
+    "patternId": "rulesets-naming.xml-BooleanGetMethodName",
+    "title": "Enforce boolean naming convention",
+    "description": "Boolean methods should be called 'isX()' or 'hasX()'",
+    "timeToFix": 5
+  },
+  {
+    "patternId": "rulesets-design.xml-CouplingBetweenObjects",
+    "title": "Prohibit of coupling between objects",
+    "description": "Boolean methods should be called 'isX()' or 'hasX()'",
+    "timeToFix": 5
+  },
+  {
+    "patternId": "rulesets-naming.xml-BooleanGetMethodName",
+    "title": "Enforce boolean naming convention",
+    "description": "Boolean methods should be called 'isX()' or 'hasX()'",
+    "timeToFix": 5
+  },
+  {
+    "patternId": "rulesets-naming.xml-BooleanGetMethodName",
+    "title": "Enforce boolean naming convention",
+    "description": "Boolean methods should be called 'isX()' or 'hasX()'",
+    "timeToFix": 5
+  },
+  {
+    "patternId": "rulesets-naming.xml-BooleanGetMethodName",
+    "title": "Enforce boolean naming convention",
+    "description": "Boolean methods should be called 'isX()' or 'hasX()'",
+    "timeToFix": 5
+  },
+  {
+    "patternId": "rulesets-naming.xml-BooleanGetMethodName",
+    "title": "Enforce boolean naming convention",
+    "description": "Boolean methods should be called 'isX()' or 'hasX()'",
+    "timeToFix": 5
   }
 ]
