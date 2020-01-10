@@ -97,23 +97,3 @@ class FooBar14 extends Qux {
 
 class FooBar15 extends Qux {
 }
-
-//--#Warn: rulesets-design.xml-CouplingBetweenObjects
-class FooBar {
-    private $x = new Foo();
-    private $y = new Bar();
-    private $z = new Baz();
-    private $a = new Qux();
-    private $b = new FooBar1();
-    private $c = new FooBar2();
-    private $d = new FooBar3();
-    private $e = new FooBar4();
-    private $f = new FooBar5();
-    private $g = new FooBar6();
-    private $h = new FooBar7();
-    private $i = new FooBar8();
-    private $j = new FooBar9();
-    private $k = new FooBar10();
-}
-
-?>
