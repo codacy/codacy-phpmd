@@ -1,0 +1,7 @@
+{
+    "name": "codacy/codacy-phpmd",
+    "description": "PHP Mess Detector Tool for Codacy",
+    "require": {
+        "phpmd/phpmd": "^2.8.1"
+    }
+}
