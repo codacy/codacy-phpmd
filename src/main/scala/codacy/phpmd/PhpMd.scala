@@ -52,16 +52,15 @@ object PhpMd extends Tool {
     cfgParam.flatMap { configPath =>
       val filesPaths =
         files.map(_.map(_.toString).mkString(",")).getOrElse(source.path)
-      val cmd = List("phpmd", filesPaths, "xml", configPath)
+      val cmd = List("/vendor/bin/phpmd", filesPaths, "xml", configPath)
 
-      CommandRunner.exec(cmd, Option(File(source.path).toJava)) match {
+      CommandRunner.exec(cmd, None) match {
         case Right(result) =>
           outputParsed(File(source.path).path, result.stdout.mkString) match {
             case s @ Success(_) => s
             case Failure(e) =>
               val msg =
-                s"""
-                   |PHP Mess Detector exited with code ${result.exitCode}
+                s"""PHP Mess Detector exited with code ${result.exitCode}
                    |message: ${e.getMessage}
                    |stdout: ${result.stdout.mkString(Properties.lineSeparator)}
                    |stderr: ${result.stderr.mkString(Properties.lineSeparator)}
