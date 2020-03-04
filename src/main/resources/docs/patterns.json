@@ -221,7 +221,8 @@
       "category": "Security",
       "title": "Prohibit eval expression",
       "description": "Prohibit the use of eval, it is untestable, a security risk and bad practice",
-      "level": "Warning"
+      "level": "Warning",
+      "subcategory": "CommandInjection"
     },
     {
       "patternId": "rulesets-design.xml-GotoStatement",
