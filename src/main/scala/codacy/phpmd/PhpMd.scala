@@ -17,7 +17,7 @@ import scala.xml._
 
 object PhpMd extends Tool {
 
-  lazy val configFileNames = Set("codesize.xml", "phpmd.xml")
+  lazy val configFileNames = Set("codesize.xml", "phpmd.xml", "phpmd.xml.dist")
 
   override def apply(
       source: Source.Directory,

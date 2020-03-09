@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<checkstyle version="1.5">
+    <file name="unusedcode.php">
+        <error source="rulesets-unusedcode.xml-UnusedPrivateField" line="7" message="Avoid unused private fields such as '$unusedPvt'." severity="warning" />
+    </file>
+    <file name="design.php">
+        <error source="rulesets-design.xml-GotoStatement" line="22" message="The method bar() utilizes a goto statement." severity="warning" />
+        <error source="rulesets-design.xml-GotoStatement" line="27" message="The method bar() utilizes a goto statement." severity="warning" />
+        <error source="rulesets-design.xml-GotoStatement" line="32" message="The method bar() utilizes a goto statement." severity="warning" />
+    </file>
+</checkstyle>

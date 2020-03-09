@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- https://raw.githubusercontent.com/marcstraube/php-skeleton/master/php-skeleton/phpmd.xml -->
+
+<ruleset name="PHP-Skeleton" xmlns="http://pmd.sf.net/ruleset/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schmaLocation="http://pmd.sf.net/ruleset/1.0.0
+                            http://pmd.sf.net/ruleset_xml_schma.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+    <description>PHP test config</description>
+
+    <!-- Design Rules -->
+    <rule ref="rulesets/design.xml/GotoStatement" />
+
+    <!-- Unused Code Rules -->
+    <rule ref="rulesets/unusedcode.xml/UnusedPrivateField" />
+
+</ruleset>
