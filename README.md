@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/dbd3ae4c08d24490832393cb2a9474c4)](https://www.codacy.com/app/Codacy/codacy-phpmd)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dbd3ae4c08d24490832393cb2a9474c4)](https://www.codacy.com/gh/codacy/codacy-phpmd?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/codacy-phpmd&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://circleci.com/gh/codacy/codacy-phpmd.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/codacy/codacy-phpmd)
 
 # Codacy PHPMD
