@@ -7,7 +7,8 @@
       "category": "CodeStyle",
       "title": "Avoid else expressions",
       "description": "Use return statements instead of else expression",
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     },
     {
       "patternId": "rulesets-cleancode.xml-StaticAccess",
@@ -20,14 +21,16 @@
           "name": "exceptions",
           "default": ""
         }
-      ]
+      ],
+      "enabled": true
     },
     {
       "patternId": "rulesets-cleancode.xml-BooleanArgumentFlag",
       "category": "CodeStyle",
       "title": "The method has a boolean flag argument, which is a certain sign of a Single Responsibility Principle violation.",
       "description": "A boolean flag argument is a reliable indicator for a violation of the Single Responsibility Principle (SRP). You can fix this problem by extracting the logic in the boolean flag into its own class or method.",
-      "level": "Info"
+      "level": "Info",
+      "enabled": false
     },
     {
       "patternId": "rulesets-codesize.xml-CyclomaticComplexity",
@@ -48,7 +51,8 @@
           "default": true
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-NPathComplexity",
@@ -61,7 +65,8 @@
           "default": 200
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveMethodLength",
@@ -74,7 +79,8 @@
           "default": 100
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveClassLength",
@@ -87,7 +93,8 @@
           "default": 1000
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveParameterList",
@@ -100,7 +107,8 @@
           "default": 10
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessivePublicCount",
@@ -113,7 +121,8 @@
           "default": 45
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-TooManyFields",
@@ -126,7 +135,8 @@
           "default": 15
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-TooManyMethods",
@@ -139,7 +149,8 @@
           "default": 10
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-codesize.xml-TooManyPublicMethods",
@@ -152,7 +163,8 @@
           "default": 10
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": false
     },
     {
       "patternId": "rulesets-codesize.xml-ExcessiveClassComplexity",
@@ -165,56 +177,64 @@
           "default": 50
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-controversial.xml-Superglobals",
       "category": "CodeStyle",
       "title": "Encapsulate Superglobals",
       "description": "Prohibit direct access to superglobal variables",
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     },
     {
       "patternId": "rulesets-controversial.xml-CamelCaseClassName",
       "category": "CodeStyle",
       "title": "Enforce CamelCase in classes",
       "description": "Requires all class names to use the CamelCase style",
-      "level": "Info"
+      "level": "Info",
+      "enabled": false
     },
     {
       "patternId": "rulesets-controversial.xml-CamelCasePropertyName",
       "category": "CodeStyle",
       "title": "Enforce CamelCase in properties",
       "description": "Requires all property names to use the CamelCase style",
-      "level": "Info"
+      "level": "Info",
+      "enabled": false
     },
     {
       "patternId": "rulesets-controversial.xml-CamelCaseMethodName",
       "category": "CodeStyle",
       "title": "Enforce CamelCase in methods",
       "description": "Requires all method names to use the CamelCase style",
-      "level": "Info"
+      "level": "Info",
+      "enabled": false
     },
     {
       "patternId": "rulesets-controversial.xml-CamelCaseParameterName",
       "category": "CodeStyle",
       "title": "Enforce CamelCase in parameters",
       "description": "Requires all parameter names to use the CamelCase style",
-      "level": "Info"
+      "level": "Info",
+      "enabled": false
     },
     {
       "patternId": "rulesets-controversial.xml-CamelCaseVariableName",
       "category": "CodeStyle",
       "title": "Enforce CamelCase in variables",
       "description": "Requires all variable names to use the CamelCase style",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": false
     },
     {
       "patternId": "rulesets-design.xml-ExitExpression",
       "category": "ErrorProne",
       "title": "Prohibit exit-expression",
       "description": "Prohibit the use of exit-expressions within regular code, it is not testable",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-design.xml-EvalExpression",
@@ -222,14 +242,16 @@
       "title": "Prohibit eval expression",
       "description": "Prohibit the use of eval, it is untestable, a security risk and bad practice",
       "level": "Warning",
-      "subcategory": "CommandInjection"
+      "subcategory": "CommandInjection",
+      "enabled": true
     },
     {
       "patternId": "rulesets-design.xml-GotoStatement",
       "category": "ErrorProne",
       "title": "Prohibit goto",
       "description": "Prohibit the use of goto, it makes the code harder to read nearly impossible to understand",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-design.xml-NumberOfChildren",
@@ -242,7 +264,8 @@
           "default": 15
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-design.xml-DepthOfInheritance",
@@ -255,7 +278,8 @@
           "default": 6
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-design.xml-CouplingBetweenObjects",
@@ -268,7 +292,8 @@
           "default": 13
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-design.xml-DevelopmentCodeFragment",
@@ -281,35 +306,40 @@
           "default": "var_dump,print_r,debug_zval_dump,debug_print_backtrace"
         }
       ],
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": false
     },
     {
       "patternId": "rulesets-unusedcode.xml-UnusedPrivateField",
       "category": "UnusedCode",
       "title": "Prohibit unused private variables",
       "description": "Prohibit the definition or assignment of unused private variables",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-unusedcode.xml-UnusedLocalVariable",
       "category": "UnusedCode",
       "title": "Prohibit unused variables",
       "description": "Prohibit the definition or assignment of unused local variables",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-unusedcode.xml-UnusedPrivateMethod",
       "category": "UnusedCode",
       "title": "Prohibit unused private methods",
       "description": "Prohibit the definition or assignment of unused private methods",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-unusedcode.xml-UnusedFormalParameter",
       "category": "UnusedCode",
       "title": "Prohibit unused arguments",
       "description": "Prohibit the definition of unused parameters on methods or constructors",
-      "level": "Warning"
+      "level": "Warning",
+      "enabled": true
     },
     {
       "patternId": "rulesets-naming.xml-ShortVariable",
@@ -326,7 +356,8 @@
           "default": ""
         }
       ],
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     },
     {
       "patternId": "rulesets-naming.xml-LongVariable",
@@ -339,7 +370,8 @@
           "default": 20
         }
       ],
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     },
     {
       "patternId": "rulesets-naming.xml-ShortMethodName",
@@ -356,28 +388,32 @@
           "default": ""
         }
       ],
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     },
     {
       "patternId": "rulesets-naming.xml-ConstructorWithNameAsEnclosingClass",
       "category": "CodeStyle",
       "title": "Prohibit constructor with class name",
       "description": "In PHP 5, a constructor should not have the same name as the enclosing class.",
-      "level": "Info"
+      "level": "Info",
+      "enabled": false
     },
     {
       "patternId": "rulesets-naming.xml-ConstantNamingConventions",
       "category": "CodeStyle",
       "title": "Enforce uppercase constants",
       "description": "Constant names should always be defined in uppercase.",
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     },
     {
       "patternId": "rulesets-naming.xml-BooleanGetMethodName",
       "category": "CodeStyle",
       "title": "Enforce boolean naming convention",
       "description": "Boolean methods should be called 'isX()' or 'hasX()'",
-      "level": "Info"
+      "level": "Info",
+      "enabled": true
     }
   ]
 }
