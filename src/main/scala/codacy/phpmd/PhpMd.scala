@@ -151,7 +151,7 @@ object PhpMd extends Tool {
   private[this] def toXmlRule(patternDef: Pattern.Definition)(implicit spec: Specification): Elem = {
     //get all default parameters and replace the ones supplied
     val defaultParams = defaultParametersFor(patternDef)
-    val suppliedParams = patternDef.parameters.getOrElse(Set.empty)
+    val suppliedParams = patternDef.parameters
     val allParams = defaultParams.filterNot { param =>
       suppliedParams.map(_.name).contains(param.name)
     } ++ suppliedParams
@@ -170,11 +170,11 @@ object PhpMd extends Tool {
   )(implicit spec: Specification): Set[Parameter.Definition] = {
     spec.patterns.collectFirst {
       case patternSpec if patternSpec.patternId == patternDef.patternId =>
-        patternSpec.parameters.map(_.map { parameter =>
+        patternSpec.parameters.map { parameter =>
           Parameter.Definition(parameter.name, parameter.default)
-        })
+        }
     } match {
-      case Some(Some(params)) => params
+      case Some(params) => params
       case _ => Set.empty[Parameter.Definition]
     }
   }
