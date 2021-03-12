@@ -66,16 +66,16 @@
         },
         {
             "name": "pdepend/pdepend",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pdepend/pdepend.git",
-                "reference": "c64472f8e76ca858c79ad9a4cf1e2734b3f8cc38"
+                "reference": "b6452ce4b570f540be3a4f46276dd8d8f4fa5ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/c64472f8e76ca858c79ad9a4cf1e2734b3f8cc38",
-                "reference": "c64472f8e76ca858c79ad9a4cf1e2734b3f8cc38",
+                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/b6452ce4b570f540be3a4f46276dd8d8f4fa5ead",
+                "reference": "b6452ce4b570f540be3a4f46276dd8d8f4fa5ead",
                 "shasum": ""
             },
             "require": {
@@ -85,9 +85,9 @@
                 "symfony/filesystem": "^2.3.0|^3|^4|^5"
             },
             "require-dev": {
-                "easy-doc/easy-doc": "0.0.0 || ^1.2.3",
+                "easy-doc/easy-doc": "0.0.0|^1.2.3",
                 "gregwar/rst": "^1.0",
-                "phpunit/phpunit": "^4.8.35|^5.7",
+                "phpunit/phpunit": "^4.8.36|^5.7.27",
                 "squizlabs/php_codesniffer": "^2.0.0"
             },
             "bin": [
@@ -115,7 +115,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-20T10:53:13+00:00"
+            "time": "2021-03-11T09:20:40+00:00"
         },
         {
             "name": "phpmd/phpmd",
