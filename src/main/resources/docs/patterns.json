@@ -1,6 +1,6 @@
 {
   "name": "phpmd",
-  "version": "2.8.1",
+  "version": "2.10.1",
   "patterns": [
     {
       "patternId": "rulesets-cleancode.xml-ElseExpression",
@@ -161,6 +161,10 @@
         {
           "name": "maxmethods",
           "default": 10
+        },
+        {
+          "name": "ignorepattern",
+          "default": "(^(set|get))i"
         }
       ],
       "level": "Warning",
@@ -288,7 +292,7 @@
       "description": "A class with too many dependencies has negative impacts on several quality aspects of a class. This includes quality criteria like stability, maintainability and understandability.",
       "parameters": [
         {
-          "name": "minimum",
+          "name": "maximum",
           "default": 13
         }
       ],
@@ -304,6 +308,10 @@
         {
           "name": "unwanted-functions",
           "default": "var_dump,print_r,debug_zval_dump,debug_print_backtrace"
+        },
+        {
+          "name": "ignore-namespaces",
+          "default": false
         }
       ],
       "level": "Warning",
