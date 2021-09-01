@@ -302,7 +302,6 @@
     "parameters": [
       {
         "name": "maximum",
-        "default": 13,
         "description": "Maximum number of acceptable dependencies."
       }
     ],
@@ -315,12 +314,10 @@
     "parameters": [
       {
         "name": "unwanted-functions",
-        "default": "var_dump,print_r,debug_zval_dump,debug_print_backtrace",
         "description": "Comma separated list of suspect function images."
       },
       {
         "name": "ignore-namespaces",
-        "default": false,
         "description": "Ignore namespaces when looking for dev. fragments"
       }
     ],
@@ -341,12 +338,10 @@
     "parameters": [
       {
         "name": "maxmethods",
-        "default": 10,
         "description": "The method count reporting threshold"
       },
       {
         "name": "ignorepattern",
-        "default": "(^(set|get))i",
         "description": "Ignore methods matching this regex"
       }
     ],
