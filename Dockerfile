@@ -1,4 +1,4 @@
-FROM php:alpine3.11
+FROM php:alpine3.14
 
 RUN apk --no-cache add composer bash openjdk8-jre
 
