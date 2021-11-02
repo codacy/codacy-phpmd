@@ -52,7 +52,7 @@ object PhpMd extends Tool {
     cfgParam.flatMap { configPath =>
       val filesPaths =
         files.map(_.map(_.toString).mkString(",")).getOrElse(source.path)
-      val cmd = List("/vendor/bin/phpmd", filesPaths, "xml", configPath)
+      val cmd = List("vendor/bin/phpmd", filesPaths, "xml", configPath)
 
       CommandRunner.exec(cmd, None) match {
         case Right(result) =>
