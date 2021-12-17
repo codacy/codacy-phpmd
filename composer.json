@@ -2,6 +2,6 @@
     "name": "codacy/codacy-phpmd",
     "description": "PHP Mess Detector Tool for Codacy",
     "require": {
-        "phpmd/phpmd": "2.10.2"
+        "phpmd/phpmd": "2.11.1"
     }
 }
