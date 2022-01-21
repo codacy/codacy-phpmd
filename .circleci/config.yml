@@ -10,10 +10,11 @@ workflows:
       - codacy/checkout_and_version:
           write_sbt_version: true
       - codacy/sbt:
-          name: publish_docker_local
+          name: build
           cmd: |
-            sbt "scalafmt::test;
-                 sbt:scalafmt::test;
+            sbt "scalafmtCheckAll;
+                 scalafmtSbtCheck;
+                 test;
                  stage"
             docker build -t codacy-phpmd .
             docker save --output docker-image.tar $CIRCLE_PROJECT_REPONAME:latest
@@ -24,7 +25,7 @@ workflows:
           name: plugins_test
           run_multiple_tests: true
           requires:
-            - publish_docker_local
+            - build
       - codacy/publish_docker:
           context: CodacyDocker
           requires:

@@ -9,6 +9,7 @@ import com.codacy.plugins.api.results.Tool.Specification
 import com.codacy.plugins.api.results.{Parameter, Pattern, Result, Tool}
 import com.codacy.plugins.api.{ErrorMessage, Options, Source}
 import com.codacy.plugins.api.paramValueToJsValue
+import com.codacy.tools.scala.seed.DockerEngine
 import com.codacy.tools.scala.seed.utils.CommandRunner
 import play.api.libs.json.{JsString, Json}
 
@@ -33,6 +34,14 @@ object PhpMd extends Tool {
             file
         }
         .map(_.toJava.getAbsolutePath)
+        .map { path =>
+          val config = File(path).contentAsString
+          val sanitized = ConfigFileSanitizer.sanitize(config)
+          val dir = File.newTemporaryDirectory()
+          val newFile = dir / "phpmd.xml"
+          newFile.write(sanitized)
+          newFile.pathAsString
+        }
     }
 
     val patternConfigParam = {
@@ -200,3 +209,5 @@ object PhpMd extends Tool {
     )
   }
 }
+
+object Engine extends DockerEngine(PhpMd)()
