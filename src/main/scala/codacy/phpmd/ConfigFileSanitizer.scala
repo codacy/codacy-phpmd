@@ -20,7 +20,12 @@ object ConfigFileSanitizer {
 
   private def isValid(elem: Node): Boolean = {
     if (elem.label == "rule") {
-      (elem \ "@class").isEmpty && (elem \ "@file").isEmpty
+      val isNotCustomRule = (elem \ "@class").isEmpty && (elem \ "@file").isEmpty
+      val doesntReferenceSrcDir = {
+        val ref = elem \@ "ref"
+        !ref.contains("..") && !ref.contains("/src")
+      }
+      isNotCustomRule && doesntReferenceSrcDir
     } else true
   }
 
