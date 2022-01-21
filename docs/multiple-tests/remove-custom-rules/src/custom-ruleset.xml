@@ -6,6 +6,4 @@
                         http://pmd.sf.net/ruleset_xml_schema.xsd">
 
     <rule name="Foo" message="message" class="Foo" file="Foo.php" />
-    <rule ref="../src/custom-ruleset.xml" />
-    <rule ref="/src/custom-ruleset.xml" />
 </ruleset>
