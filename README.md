@@ -22,6 +22,10 @@ The docker is ran with the following command:
 docker run -it -v $srcDir:/src  <DOCKER_NAME>:<DOCKER_VERSION>
 ```
 
+## Update Documentation
+
+The documentation is updated manually by checking the official documentation rules in the [PHPMD repository](https://github.com/phpmd/phpmd).
+
 ## Test
 
 We use the [codacy-plugins-test](https://github.com/codacy/codacy-plugins-test) to test our external tools integration.
