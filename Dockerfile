@@ -1,4 +1,4 @@
-FROM alpine:3.17.0 as base
+FROM alpine:3.17.3 as base
 
 RUN apk add --no-cache php bash php-simplexml php-dom php-tokenizer openjdk8-jre
 
