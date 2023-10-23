@@ -358,6 +358,24 @@
       "enabled": false
     },
     {
+      "patternId": "rulesets-design.xml-EmptyCatchBlock",
+      "category": "CodeStyle",
+      "title": "Usually empty try-catch",
+      "description": "Usually empty try-catch is a bad idea because you are silently swallowing an error condition and then continuing execution.",
+      "parameters": [],
+      "level": "Warning",
+      "enabled": true
+    },
+    {
+      "patternId": "rulesets-design.xml-CountInLoopExpression",
+      "category": "CodeStyle",
+      "title": "Using count/sizeof in loops expressions",
+      "description": "Using count/sizeof in loops expressions is considered bad practice and is a potential source of many bugs, especially when the loop manipulates an array, as count happens on each iteration.",
+      "parameters": [],
+      "level": "Warning",
+      "enabled": true
+    },
+    {
       "patternId": "rulesets-unusedcode.xml-UnusedPrivateField",
       "category": "UnusedCode",
       "title": "Prohibit unused private variables",
@@ -416,6 +434,46 @@
         {
           "name": "maximum",
           "default": 20
+        }
+      ],
+      "level": "Info",
+      "enabled": true
+    },
+    {
+      "patternId": "rulesets-naming.xml-LongClassName",
+      "category": "CodeStyle",
+      "title": "Avoid excessively long class names",
+      "description": "Detects when classes or interfaces are declared with excessively long names.",
+      "parameters": [
+        {
+          "name": "maximum",
+          "default": 40
+        },
+        {
+          "name": "subtract-prefixes",
+          "default": ""
+        },
+        {
+          "name": "subtract-suffixes",
+          "default": ""
+        }
+      ],
+      "level": "Info",
+      "enabled": true
+    },
+    {
+      "patternId": "rulesets-naming.xml-ShortClassName",
+      "category": "CodeStyle",
+      "title": "Avoid classes with short names",
+      "description": "Detects when classes or interfaces have a very short name.",
+      "parameters": [
+        {
+          "name": "minimum",
+          "default": 3
+        },
+        {
+          "name": "exceptions",
+          "default": ""
         }
       ],
       "level": "Info",
