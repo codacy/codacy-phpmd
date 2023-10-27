@@ -28,12 +28,12 @@ The documentation is updated manually by checking the official documentation rul
 
 ## Update version
 
-1. Install php:
+1.  Install php - (it will create the composer.phar file):
 
 ```
-curl -sS https://getcomposer.org/installer | php (it will create the composer.phar file)
+curl -sS https://getcomposer.org/installer | php 
 ```
-2. Update phpmd version on composer.json:
+2.  Update phpmd version on composer.json:
 
 ```
 "require": {
@@ -41,7 +41,7 @@ curl -sS https://getcomposer.org/installer | php (it will create the composer.ph
     }
 ```
 
-3. Run the update command to get the latest versions of the dependencies and to update the composer.lock file:
+3.  Run the update command to get the latest versions of the dependencies and to update the composer.lock file:
 
 ```
 php composer.phar update
