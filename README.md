@@ -28,7 +28,7 @@ The documentation is updated manually by checking the official documentation rul
 
 ## Update version
 
-1.  Install php - (it will create the composer.phar file):
+1.  Install composer - (It will create the composer.phar file):
 
 ```
 curl -sS https://getcomposer.org/installer | php 
