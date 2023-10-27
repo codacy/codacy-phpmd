@@ -29,23 +29,30 @@ The documentation is updated manually by checking the official documentation rul
 ## Update version
 
 1. Install php:
-````
+
+```
 curl -sS https://getcomposer.org/installer | php (it will create the composer.phar file)
 ```
 2. Update phpmd version on composer.json:
+
 ```
 "require": {
         "phpmd/phpmd": "x.xx.x"
     }
 ```
+
 3. Run the update command to get the latest versions of the dependencies and to update the composer.lock file:
+
 ```
 php composer.phar update
 ```
+
 Note: If you receive a message like this:
+
 ```
 Could not fetch <URL package>, please review your configured GitHub OAuth token or enter a new one to access private repos" Create a new token here: https://github.com/settings/tokens/new?scopes=&description=Composer to retrieve a token.
 ```
+
 create the token and paste it to proceed.
 
 ## Test
