@@ -17,3 +17,4 @@ jobs:
       uses: nicklem/patpatbot@main
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        REPO_NAME: ${{ github.event.repository.name }}
