@@ -18,3 +18,8 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         REPO_NAME: ${{ github.event.repository.name }}
+
+    - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: 'gpt: Automated pattern documentation updates'
+        file_pattern: '*.md *.json'
