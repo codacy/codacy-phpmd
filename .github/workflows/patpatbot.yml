@@ -1,4 +1,4 @@
-name: Review pattern documentation
+name: Review patternmain documentation
 
 on:
   pull_request:
@@ -15,3 +15,7 @@ jobs:
 
     - name: Run PatPatBot Action
       uses: nicklem/patpatbot@main
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        REPO_NAME: ${{ github.event.repository.name }}
+        INPUT_DOCS_GLOB: ${{ github.event.inputs.directory || 'docs/description/*.md' }}
