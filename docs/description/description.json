@@ -362,11 +362,11 @@
     "timeToFix": 5
   },
   {
-  "patternId": "rulesets-design.xml-EmptyCatchBlock",
-  "parameters": [],
-  "title": "Usually empty try-catch",
-  "description": "Usually empty try-catch is a bad idea because you are silently swallowing an error condition and then continuing execution.",
-  "timeToFix": 5
+    "patternId": "rulesets-design.xml-EmptyCatchBlock",
+    "parameters": [],
+    "title": "Usually empty try-catch",
+    "description": "Usually empty try-catch is a bad idea because you are silently swallowing an error condition and then continuing execution.",
+    "timeToFix": 5
   },
   {
     "patternId": "rulesets-design.xml-CountInLoopExpression",
